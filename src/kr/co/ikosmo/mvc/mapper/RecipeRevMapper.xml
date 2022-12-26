@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="recipe_review">
+  
+  <resultMap type="recipereviewvo" id="recipereviewvo">
+  	<id property="review_no" column="review_no" javaType="int"/>
+  		<result property="mem_no" column="mem_no" javaType="int"/>
+		<result property="class_no" column="class_no"/>
+		<result property="recipe_no" column="recipe_no"/>
+		<result property="star_rate" column="star_rate"/>	
+		<result property="type" column="type"/>
+		<result property="review_content" column="review_content"/>
+		<result property="review_date" column="review_date"/>
+		<result property="review_declare" column="review_declare"/>
+  
+  
+  
+    <association property="clas" column="class_no" javaType="classvo">
+		<id property="class_no" column="class_no"/>
+		<result property="class_title" column="class_title"/>	
+	</association>
+	
+	
+	<association property="recipe" column="recipe_no" javaType="recipeinfo">
+		<id property="recipe_no" column="recipe_no"/>
+		<result property="recipe_title" column="recipe_title"/>	
+	</association>
+	
+	
+	<association property="member" column="mem_no" javaType="membervo">
+		<id property="mem_no" column="mem_no"/>
+		<result property="mem_nickname" column="mem_nickname"/>	
+		<result property="mem_pic" column="mem_pic"/>
+	</association>
+  
+  </resultMap>
+  
+  
+  <!-- 리뷰 인설트 -->
+  <insert id="RecipeReviewinsert" parameterType="recipereviewvo">
+  insert into 
+  review (review_no, mem_no, class_no, recipe_no, type, star_rate, review_content, review_date, review_declare)
+  VALUES(review_seq.nextval, #{mem_no}, null, #{recipe_no}, 2, #{star_rate}, #{review_content}, sysdate, 0)
+  </insert>
+  
+  <!-- 리뷰 목록 셀렉트 -->
+  <select id="getReviewList" resultMap="recipereviewvo" parameterType="recipereviewvo">
+    select r.review_no as review_no, 
+  		   r.mem_no as mem_no, 
+  		   m.mem_nickname as mem_nickname,
+		   r.star_rate as star_rate, 
+		   r.review_content as review_content, 
+	   	   r.review_date as review_date
+	from 
+		   review r
+	join 
+	       member_info m 
+	on 
+	       r.mem_no = m.mem_no
+	where 
+	       recipe_no = #{recipe_no}
+	order by
+		   review_date     
+  </select>
+  
+  <!-- 리뷰 삭제 -->
+  <delete id="deleteReview" parameterType="recipereviewvo">
+  delete from review where review_no = #{review_no}
+  </delete>
+  
+  
+  </mapper>

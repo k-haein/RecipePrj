@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="chef">
+  
+  	
+  	<!-- 목록 만들기 -->
+  	<select id="cheflist" resultType="chefvo" parameterType="chefvo">
+  	select * from cheflist
+  	</select>
+    
+    <select id="kindtag" resultType="chefvo" parameterType="int">
+    select * from cheflist where kind_tag_no = #{kind_tag_no}
+    </select>
+    
+    <!-- 쉐프 랭킹 -->
+    <select id="subrank" resultType="chefvo">
+    select * from cheflist order by subscribe_cnt
+    </select>
+    
+    <select id="chefSearch" resultType="chefvo" parameterType="String">
+    select * from cheflist
+    where
+    mem_nickname like '%'||#{chef_Keyword}||'%'
+    </select>
+    
+  </mapper>

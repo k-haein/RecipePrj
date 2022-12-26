@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mppc">
+	
+
+<!-- ==========
+레시피 목록 띄우기 
+============= -->
+<!-- 페이징 처리 -->
+<select id="listc" resultType="recipeinfo" parameterType="hashMap">
+ select * from (select rownum r_num, a.* from (select * from recipe_info 
+ where recipe_info.mem_no=(select mem_no from member_info where mem_no=#{sessionNo} )order by recipe_no desc ) a) 
+   where r_num between #{start} and #{end} 
+</select><!-- 시작점과 끝점(한페이지에 몇개의 목록만 나올것인지 -->
+<!-- 페이징 처리 할 때 몇개씩 끊을지 갯수 세기 -->
+<select id="totalCountc" resultType="int">
+  		select count(*) cnt from recipe_info
+ </select> 
+ 
+<!-- ==========
+클래스 목록 띄우기 
+============= --> 
+<!-- 내 클래스 목록 띄우기 -->
+<select id="classlistC" resultType="classvo" parameterType="int">
+ select * from class_info 
+ where class_info.mem_no=(select distinct mem_no from member_info where mem_no = #{mem_no}) order by class_no desc
+</select>
+
+
+
+
+<!-- 쉐프가 수강중인 classlist_resultmap -->
+<resultMap type="classvo" id="classlist_resultmap">
+		<id property="class_no" column="class_no" javaType="int"/>
+		<result property="mem_no" column="mem_no"/>
+		<result property="class_price" column="class_price"/>
+		<result property="class_title" column="class_title"/>
+		<result property="class_thumbnail" column="class_thumbnail"/>
+		<result property="class_price" column="class_price"/>
+			
+	<association property="payinfo" column="pay_info_no" javaType="classpayinfovo">
+		<id property="pay_info_no" column="pay_info_no"/>
+		<result property="mem_no" column="mem_no"/>
+		<result property="class_no" column="class_no"/>
+		<result property="pay_info_date" column="pay_info_date"/>					
+	</association>
+</resultMap>
+
+<!-- 수강중인 클래스 목록 띄우기 -->
+<select id="classlist_std" resultMap="classlist_resultmap" parameterType="int">
+select * from class_info c join pay_info p
+on c.class_no = p.class_no
+where p.mem_no=#{mem_no} order by c.class_no desc
+
+</select>
+
+
+
+<!-- =============
+statistic 숫자 카운트		 
+================ -->
+
+<!-- 내레시피 -->
+<select id="myRecipeCount" resultType="int" parameterType="int">
+select count(*) from recipe_info
+where mem_no = #{sessionNo}
+</select> 
+
+<!-- 내코멘트 -->
+ <select id="myReviewCount" resultType="int" parameterType="int">
+select count(*) from review
+where mem_no = #{sessionNo}
+</select> 
+
+<!-- (고객)수강중인 클래스 갯수 -->
+<select id="myClassCount" resultType="int" parameterType="int">
+select count(*) from class_info c join pay_info p
+on c.class_no = p.class_no
+where p.mem_no=#{sessionNo}
+</select>
+
+<!-- (쉐프)내 클래스를 구매한 사람의 수  -->
+<select id="myClientCount" resultType="int" parameterType="int">
+select count(*) from pay_info p join class_info c
+on p.class_no = c.class_no
+where c.mem_no=#{sessionNo}
+</select>
+
+<!-- 스크랩한 레시피 갯수 -->
+<select id="myScrapCount" resultType="int" parameterType="int">
+select count(*) from scrap s join recipe_info r 
+on s.recipe_no = r.recipe_no
+where s.mem_no=#{sessionNo}
+</select>	
+
+<!-- 내가 쓴 레시피의 별점 평균 -->
+<select id="myStarAvgCount" resultType="int" parameterType="int">
+select avg(star_rate) from review v join recipe_info r 
+on v.recipe_no = r.recipe_no
+join member_info m 
+on r.mem_no = m.mem_no 
+where m.mem_no = #{sessionNo}
+</select>
+
+<!-- 나를 구독하는 사람(subscriber) 팔로워 -->
+<select id="mySubscriberAvgCount" resultType="int" parameterType="int">
+select count(*) from subscribe s join member_info m 
+on s.subscribe_mem_no = m.mem_no 
+where s.subscribe_mem_no = #{sessionNo}
+</select>
+
+<!-- 내가 구독하는 사람(subscribe) 팔로잉 -->
+<select id="mySubscribeAvgCount" resultType="int" parameterType="int">
+select count(*) from subscribe s join member_info m 
+on s.subscribe_mem_no = m.mem_no 
+where s.mem_no = #{sessionNo}
+</select>
+
+
+</mapper>  

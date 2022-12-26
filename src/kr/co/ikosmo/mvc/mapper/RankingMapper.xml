@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="ranking">
+  
+ 
+<resultMap type="recipeinfo" id="recipeinfo">
+	<id property="recipe_no" column="recipe_no" javaType="int"/>
+	<result property="mem_no" column="mem_no" javaType="int"/>	
+	<result property="scrap_no" column="scrap_no" javaType="int"/>
+	<result property="scrap_cnt" column="scrap_cnt" javaType="int"/>
+	<result property="mem_nickname" column="mem_nickname"/>	
+	<result property="recipe_title" column="recipe_title"/>
+	<result property="recipe_thumbnail" column="recipe_thumbnail"/>
+	<result property="recipe_video" column="recipe_video"/>
+	<result property="recipe_content" column="recipe_content"/>
+	<result property="recipe_time" column="recipe_time"/>
+	<result property="recipe_level" column="recipe_level"/>
+	<result property="mate_name" column="mate_name"/>
+	<result property="mate_cnt" column="mate_cnt"/>
+	<result property="step" column="step"/>
+	<result property="visit_cnt" column="visit_cnt"/>
+	<result property="report_cnt" column="report_cnt"/>
+	<result property="kind_tag_no" column="kind_tag_no" javaType="int"/>
+	<result property="theme_tag_no" column="theme_tag_no" javaType="int"/>
+	<result property="material_tag_no" column="material_tag_no" javaType="int"/>
+	<result property="recipe_uploadtime" column="recipe_uploadtime"/>
+	<result property="rank" column="rank"/>
+  
+
+<association property="member" column="mem_no" javaType="membervo">
+		<id property="mem_no" column="mem_no"/>
+		<result property="mem_nickname" column="mem_nickname"/>	
+		<result property="mem_pic" column="mem_pic"/>
+	</association>		  
+  
+  
+ <association property="review" column="review_no" javaType="reviewvo">
+		<id property="review_no" column="review_no"/>
+		<id property="mem_no" column="mem_no"/>
+		<result property="class_no" column="class_no"/>	
+		<result property="recipe_no" column="recipe_no"/>	
+		<result property="star_rate" column="star_rate"/>
+		<result property="review_content" column="review_content"/>
+		<result property="review_date" column="review_date"/>
+		<result property="review_declare" column="review_declare"/>
+	</association>	 
+ 
+ 
+  
+ </resultMap> 
+  
+  
+  
+  
+<select id="getRankingRecipe" parameterType="recipeinfo" resultMap="recipeinfo">
+
+
+select r.recipe_no, r.visit_cnt, DENSE_RANK() OVER (ORDER BY r.visit_cnt DESC) AS rank,
+
+r.recipe_title, m.mem_nickname,r.recipe_content,r.recipe_thumbnail,r.recipe_no
+
+from recipe_info r
+
+join member_info m
+
+on r.mem_no = m.mem_no
+
+          
+     
+</select> 
+    
+  
+
+
+<resultMap type="classvo" id="classvo">
+<id property="class_no" column="class_no" javaType="int"/>
+<result property="mem_no" column="mem_no" javaType="int"/>
+<result property="class_title" column="class_title" />
+<result property="class_thumbnail" column="class_thumbnail" />
+<result property="class_content" column="class_content" />
+<result property="class_recipe_video" column="class_recipe_video" />
+<result property="mate_name" column="mate_name"/>
+<result property="mate_cnt" column="mate_cnt" />
+<result property="step" column="step"/>
+<result property="class_price" column="class_price" />
+<result property="class_period" column="class_period" />
+<result property="class_cooktime" column="class_cooktime" />
+<result property="class_detail_info" column="class_detail_info" />
+<result property="kind_tag_no" column="kind_tag_no" javaType="int"/>
+<result property="material_tag_no" column="material_tag_no" javaType="int"/>
+<result property="theme_tag_no" column="theme_tag_no" javaType="int"/>
+<result property="class_uploadtime" column="class_uploadtime" />
+<result property="view_cnt" column="view_cnt" />
+<result property="admin_app" column="admin_app" />
+<result property="cot" column="cot" />
+<result property="rank" column="rank" />
+
+
+<association property="member" column="mem_no" javaType="membervo">
+		<id property="mem_no" column="mem_no"/>
+		<result property="mem_nickname" column="mem_nickname"/>	
+		<result property="mem_pic" column="mem_pic"/>
+		<result property="mem_email" column="mem_email"/>
+	</association>		
+
+
+
+<association property="review" column="review_no" javaType="reviewvo">
+		<id property="review_no" column="review_no"/>
+		<id property="mem_no" column="mem_no"/>
+		<result property="star_rate" column="star_rate"/>	
+		<result property="type" column="type"/>	
+		<result property="review_content" column="review_content"/>
+		<result property="review_date" column="review_date"/>
+		<result property="review_declare" column="review_declare"/>
+		<result property="class_no" column="class_no"/>	
+	</association>	
+
+
+<association property="payinfo" column="pay_info_no" javaType="classpayinfovo">
+		<id property="pay_info_no" column="pay_info_no"/>
+		<result property="mem_no" column="mem_no"/>	
+		<result property="class_no" column="class_no"/>
+		<result property="ct" column="ct"/>
+	</association>		
+
+
+
+</resultMap>
+
+  
+  
+
+  
+  <select id="getRankingChef" parameterType="classvo" resultMap="classvo">
+  
+
+
+select
+
+m.mem_pic, m.mem_nickname, c.class_title, r.star_rate,c.class_thumbnail,c.class_cooktime ,  m.mem_email ,  c.class_no ,
+
+DENSE_RANK() OVER (ORDER BY r.star_rate DESC) AS rank
+    
+from (  select class_no,ceil((avg(star_rate)))as star_rate from review where type=1 group by class_no ) r
+
+join class_info c
+
+on c.class_no = r.class_no
+
+join member_info m
+
+on c.mem_no = m.mem_no
+   
+     
+</select>
+  
+ 
+  
+
+
+<!--  많이 팔린 클래스  -->
+  
+  
+<select id="getMaxPayClass" resultMap="classvo">
+
+
+
+select
+
+m.mem_pic, m.mem_nickname, c.class_title , c.class_thumbnail,c.class_cooktime , c.class_no, m.mem_email  
+
+,DENSE_RANK() OVER (ORDER BY p.ct DESC) AS rank, p.ct
+    
+from (  select count(*) as ct,class_no  from pay_info  group by class_no ) p
+
+join class_info c
+
+on c.class_no = p.class_no
+
+join member_info m
+
+on c.mem_no = m.mem_no
+
+  
+  
+</select>  
+  
+  
+  
+  
+  
+<!--    슬라이드 리뷰 부분  -->
+
+ 
+<select id="getRankingReview" parameterType="classvo" resultMap="classvo">
+
+
+   
+SELECT
+
+r.review_content , c.class_no , m.mem_nickname , m.mem_pic,
+
+r.star_rate , r.review_date , c.class_thumbnail,  c.class_title
+
+
+FROM class_info c
+
+
+JOIN review r
+
+ON c.class_no = r.class_no
+
+    
+JOIN member_info m
+
+ON c.mem_no = m.mem_no   
+
+  
+</select>
+  
+
+
+
+
+
+<select id="getRecipeChef" resultType="rankingjoinvO">
+
+         
+           
+select
+
+m.mem_pic, m.mem_nickname, m.mem_email  ,r.ct,DENSE_RANK() OVER (ORDER BY r.ct DESC) AS rank
+    
+from (  select count(*) as ct,mem_no  from recipe_info  group by mem_no )r
+
+join member_info m
+
+on r.mem_no = m.mem_no
+
+order by r.ct desc
+
+  
+</select>
+  
+
+
+
+
+<select id="getPayChef" resultType="rankingjoinvO">
+
+
+select
+
+m.mem_pic, m.mem_nickname, m.mem_email  ,r.ct,DENSE_RANK() OVER (ORDER BY r.ct DESC) AS rank
+    
+from (  
+select count(class_no) as ct,mem_no  from pay_info  group by mem_no )r
+
+join member_info m
+
+on r.mem_no = m.mem_no
+
+
+
+  
+</select>
+    
+  
+ 
+
+<select id="getClassChef" resultMap="classvo">
+
+      
+select
+
+m.mem_pic, m.mem_nickname, m.mem_email  ,c.cot,DENSE_RANK() OVER (ORDER BY c.cot DESC) AS rank
+    
+from (  select count(*) as cot,mem_no  from class_info  group by mem_no )c
+
+join member_info m
+
+on c.mem_no = m.mem_no
+
+order by c.cot desc
+
+
+  
+</select>
+ 
+  
+  
+  </mapper>

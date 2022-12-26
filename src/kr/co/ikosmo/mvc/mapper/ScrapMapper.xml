@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="scrap">
+  
+  	<!-- 글번호와 회원번호가 일치하는 갯수를 세기 -->
+  	<select id="select" resultType="Integer" parameterType="HashMap">
+  	SELECT count(*) from scrap 
+  	where
+  	mem_no = #{mem_no} and recipe_no = #{recipe_no}
+  	</select>
+  	
+  	<!-- 스크랩 등록 -->
+  	<insert id="insert" parameterType="HashMap">
+  	insert into scrap 
+  	values(scrap_seq.nextval,#{mem_no},#{recipe_no},1,sysdate) 
+  	</insert>
+	
+	<!-- 스크랩 삭제 -->
+	<delete id="delete" parameterType="HashMap">
+		delete from scrap 
+		where 
+		mem_no = #{mem_no} and recipe_no = #{recipe_no}
+	</delete>
+  
+  </mapper>

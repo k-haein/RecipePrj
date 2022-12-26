@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<typeAliases>
+
+<typeAlias type="kr.co.ikosmo.mvc.vo.Recipe_infoVO" alias="recipeinfo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.ScrapVO" alias="scrapvo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.ChefVO" alias="chefvo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.SubscribeVO" alias="subscribevo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.MembershipVO" alias="membership"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.Mypage_ingVO" alias="pvo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.ClassPayInfoVO" alias="classpayinfovo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.ClassVO" alias="classvo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.KindTagVO" alias="kindtagvo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.MaterialTagVO" alias="materialtagvo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.ThemeTagVO" alias="themetagvo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.ClassMemberVO" alias="membervo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.RecipeReviewVO" alias="recipereviewvo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.ReviewVO" alias="reviewvo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.ReviewJoinVO" alias="reviewjoinvo"/>
+<typeAlias type="kr.co.ikosmo.mvc.vo.RankingJoinVO" alias="rankingjoinvO"/>
+
+
+<typeAlias type="kr.co.ikosmo.mvc.vo.StoreVO"   alias="str"/>
+
+<typeAlias type="kr.co.ikosmo.mvc.vo.PageVO" alias="pagevo"/>
+
+<typeAlias type="kr.co.ikosmo.mvc.vo.StoreReviewVO" alias="storeReview"/>
+
+<typeAlias type="kr.co.ikosmo.mvc.vo.CartDTO" alias="Cartdto"/>
+
+<typeAlias type="kr.co.ikosmo.mvc.vo.CheckOutDTO" alias="chkoutdto"/>
+
+</typeAliases>
+</configuration>

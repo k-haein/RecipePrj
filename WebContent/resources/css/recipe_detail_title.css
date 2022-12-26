@@ -1,0 +1,56 @@
+
+#mate_title, #mate_name, #mate_cnt{
+
+	display: inline-block;
+	
+}
+
+
+
+.post-meta d12{
+	
+		font-weight: 800;
+	font-size: 18px;
+	
+}
+
+#mate_title{
+	
+	margin-bottom: 40px;
+	
+}
+
+#mate_title span{
+
+	display: inline-block;
+
+}
+
+
+#mate_cnt{
+
+	margin: 0 0 0 380px;
+	
+
+}
+
+
+
+#mate_cnt d11, #mate_name d11{
+
+	font-weight: 800;
+	font-size: 19px;
+
+}
+
+#steplist, #steplist d12{
+	font-weight: 500;
+	font-size: 17px;
+}
+
+#steplist d{  
+background: url(../image/detail_img/detail_icon_05.png) no-repeat 0 3px;
+}
+
+
+

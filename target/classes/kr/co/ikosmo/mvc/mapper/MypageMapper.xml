@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mpp">
+
+<!-- ==========
+레시피 목록 띄우기 
+============= -->
+<!-- 페이징 처리 -->
+<select id="list" resultType="recipeinfo" parameterType="hashMap">
+ select * from (select rownum r_num, a.* from (select * from recipe_info 
+ where recipe_info.mem_no=(select mem_no from member_info where mem_no=#{sessionNo} )order by recipe_no desc ) a) 
+   where r_num between #{start} and #{end} 
+</select><!-- 시작점과 끝점(한페이지에 몇개의 목록만 나올것인지 -->
+<!-- 페이징 처리 할 때 몇개씩 끊을지 갯수 세기 -->
+<select id="totalCount" resultType="int">
+  		select count(*) cnt from recipe_info
+ </select> 
+
+
+<!-- ==========
+클래스 고객 목록 띄우기 
+============= -->
+<!-- 3. classlist_resultmap -->
+<resultMap type="classvo" id="classlist_resultmap">
+		<id property="class_no" column="class_no" javaType="int"/>
+		<result property="mem_no" column="mem_no"/>
+		<result property="class_price" column="class_price"/>
+		<result property="class_title" column="class_title"/>
+		<result property="class_thumbnail" column="class_thumbnail"/>
+		<result property="class_price" column="class_price"/>
+			
+		<!-- payinfo-> classpay_info -->
+	
+	<association property="payinfo" column="pay_info_no" javaType="classpayinfovo">
+		<id property="pay_info_no" column="pay_info_no"/>
+		<result property="mem_no" column="mem_no"/>
+		<result property="class_no" column="class_no"/>
+		<result property="pay_info_date" column="pay_info_date"/>					
+	</association>
+</resultMap>
+
+<!-- 고객이 듣는 클래스 목록 띄우기 -->
+<select id="classlist" resultMap="classlist_resultmap" parameterType="int">
+select * from class_info c join pay_info p
+on c.class_no = p.class_no
+where p.mem_no=#{mem_no} order by c.class_no desc
+
+</select>
+
+
+<!-- =============
+statistic 숫자 카운트		 
+================ -->
+
+<!-- 내레시피 -->
+<select id="myRecipeCount" resultType="int" parameterType="int">
+select count(*) from recipe_info
+where mem_no = #{sessionNo}
+</select> 
+
+<!-- 내레시피에 달린 코멘트 갯수 -->
+<select id="myReviewCount"  resultType="int"  parameterType="int">
+select count(*) from review v join recipe_info r 
+on v.recipe_no = r.recipe_no
+where r.mem_no =#{sessionNo}
+</select> 
+
+<!-- (고객)내가 듣는 클래스 갯수 -->
+<select id="myClassCount" resultType="int" parameterType="int">
+select count(*) from class_info c join pay_info p
+on c.class_no = p.class_no
+where p.mem_no=#{sessionNo}
+</select>
+
+<!-- 스크랩한 레시피 갯수 -->
+<select id="myScrapCount" resultType="int" parameterType="int">
+select count(*) from scrap s join recipe_info r 
+on s.recipe_no = r.recipe_no
+where s.mem_no=#{sessionNo}
+</select>
+
+<!-- 나를 구독하는 사람(subscriber) 팔로워 -->
+<select id="mySubscriberAvgCount" resultType="int" parameterType="int">
+select count(*) from subscribe s join member_info m 
+on s.subscribe_mem_no = m.mem_no 
+where s.subscribe_mem_no = #{sessionNo}
+</select>
+
+<!-- 내가 구독하는 사람(subscribe) 팔로잉 -->
+<select id="mySubscribeAvgCount" resultType="int" parameterType="int">
+select count(*) from subscribe s join member_info m 
+on s.subscribe_mem_no = m.mem_no 
+where s.mem_no = #{sessionNo}
+</select>
+
+
+<!-- 내가 쓴 레시피의 별점 평균 -->
+<select id="myStarAvgCount" resultType="int" parameterType="int">
+select avg(star_rate) from review v join recipe_info r 
+on v.recipe_no = r.recipe_no
+where r.mem_no = #{sessionNo}
+</select>
+
+
+
+<!-- ====================================== 카테고리Mapper ====================================================== -->
+
+<!-- ==========
+코멘트 목록 띄우기 
+============= -->
+<!-- 2. review_resultmap -->
+<resultMap type="reviewvo" id="review_resultmap">
+		<id property="review_no" column="review_no" javaType="int"/>
+		<result property="mem_no" column="mem_no"/>
+		<result property="class_no" column="class_no"/>
+		<result property="recipe_no" column="recipe_no"/>
+		<result property="star_rate" column="star_rate"/>
+		<result property="review_declare" column="review_declare"/>
+		<result property="type" column="type"/>
+		<result property="review_content" column="review_content"/>
+		<result property="review_date" column="review_date"/>
+		
+		
+		<!-- 리뷰가 레시피랑 멤버를 가져와야한다. -->
+	
+	<association property="recipe2_asso" column="recipe_no" javaType="recipeinfo">
+		<id property="recipe_no" column="recipe_no"/>
+		<result property="recipe_title" column="recipe_title"/><!-- 값 -->
+		<result property="recipe_thumbnail" column="recipe_thumbnail"/>
+		<result property="recipe_video" column="recipe_video"/>
+		<result property="recipe_content" column="recipe_content"/>
+		<result property="recipe_time" column="recipe_time"/>
+		<result property="recipe_level" column="recipe_level"/>
+		<result property="recipe_uploadtime" column="recipe_uploadtime"/>					
+	</association>
+</resultMap>
+
+
+<!--  코멘트(리뷰) 목록 띄우기 -->
+<select id="reviewlist" parameterType="hashMap" resultMap="review_resultmap">
+
+ select * from (select rownum r_num, a.* from (
+ 
+select * from review v join recipe_info r 
+on v.recipe_no = r.recipe_no
+where r.mem_no = #{sessionNo} order by v.review_no desc
+  
+ ) a) 
+   where r_num between #{start} and #{end} 
+
+</select>
+
+<!-- 끊을 갯수 -->
+<select id="totalreviewCount" resultType="int">
+  		select count(*) cnt from review
+ </select> 
+
+
+
+
+<!-- ==========
+스크랩 목록 띄우기 
+============= -->
+
+<!-- 1. scrap_resultmap -->
+<resultMap type="scrapvo" id="scrap_resultmap"><!-- resultmap을 부르는 id -->
+		<id property="scrap_no" column="scrap_no" javaType="int"/>
+		<result property="mem_no" column="mem_no" javaType="int"/>
+		<result property="recipe_no" column="recipe_no" javaType="int"/>
+		<result property="scrap_cnt" column="scrap_cnt" javaType="int"/>
+		<result property="scrap_uploadtime" column="scrap_uploadtime"/>
+				
+		<!-- 	private Recipe_infoVO recipe_asso;
+				private Mypage_ingVO paging_asso;-->
+	
+	<association property="recipe_asso" column="recipe_no" javaType="recipeinfo">
+		<id property="recipe_no" column="recipe_no"/>
+		<result property="recipe_title" column="recipe_title"/><!-- 값 -->
+		<result property="recipe_thumbnail" column="recipe_thumbnail"/>
+		<result property="recipe_video" column="recipe_video"/>
+		<result property="recipe_content" column="recipe_content"/>
+		<result property="recipe_time" column="recipe_time"/>
+		<result property="recipe_level" column="recipe_level"/>
+		<result property="recipe_uploadtime" column="recipe_uploadtime"/>					
+	</association>
+
+	<association property="paging_asso" column="total" javaType="pvo">
+		<id property="total" column="total"/>
+		<result property="nowPage" column="nowPage"/><!-- 값 -->
+		<result property="startPage" column="startPage"/>
+		<result property="endPage" column="endPage"/>
+		<result property="total" column="total"/>
+		<result property="cntPerPage" column="cntPerPage"/>
+		<result property="lastPage" column="lastPage"/>
+		<result property="start" column="start"/>	
+		<result property="end" column="end"/>	
+		<result property="cntPage" column="cntPage"/>	
+	</association>
+	
+</resultMap>
+
+
+<!-- 스크랩 목록 띄우기 -->
+<select id="scrapList" parameterType="hashMap" resultMap="scrap_resultmap">
+
+ select * from (select rownum r_num, a.* from (
+ 
+  select * from scrap s join recipe_info r on s.recipe_no = r.recipe_no 
+  					where s.mem_no=(select mem_no from member_info where mem_no=#{sessionNo} )order by scrap_no desc 
+  
+ ) a) 
+   where r_num between #{start} and #{end} 
+
+</select>
+<!-- 끊을 갯수 -->
+<select id="totalscrapCount" resultType="int">
+  		select count(*) cnt from scrap
+ </select> 
+
+
+
+
+
+<!-- ==========
+레시피 목록 띄우기 
+============= -->
+<!-- 페이징 처리 -->
+<select id="listr" resultType="recipeinfo" parameterType="hashMap">
+ select * from (select rownum r_num, a.* from (select * from recipe_info 
+ where recipe_info.mem_no=(select mem_no from member_info where mem_no=#{sessionNo} )order by recipe_no desc ) a) 
+   where r_num between #{start} and #{end} 
+</select><!-- 시작점과 끝점(한페이지에 몇개의 목록만 나올것인지 -->
+<!-- 페이징 처리 할 때 몇개씩 끊을지 갯수 세기 -->
+<select id="totalMyrecipeCount" resultType="int">
+  		select count(*) cnt from recipe_info
+ </select>
+
+
+
+<!-- ==========
+구독 목록 띄우기 
+============= -->
+<!-- 3. subscribe_resultmap -->
+<resultMap type="subscribevo" id="subscribe_resultmap">
+		<id property="subscribe_no" column="subscribe_no" javaType="int"/>
+		<result property="kind_tag_no" column="kind_tag_no"/>
+		<result property="mem_no" column="mem_no"/>
+		<result property="subscribe_mem_no" column="subscribe_mem_no"/>
+		<result property="subscribe_uploadtime" column="subscribe_uploadtime"/>
+	
+	<association property="member_asso" column="mem_no" javaType="membership">
+		<id property="mem_no" column="mem_no"/>
+		<result property="mem_nickname" column="mem_nickname"/>
+		<result property="mem_pic" column="mem_pic"/>
+		<result property="mem_email" column="mem_email"/>
+		<result property="mem_grade_no" column="mem_grade_no"/>			
+		<result property="kind_tag_no" column="kind_tag_no"/>					
+	</association>
+</resultMap>
+
+<!-- 내가 구독하는 사람(subscribe) -->
+<select id="subscribeList" parameterType="hashMap" resultMap="subscribe_resultmap">
+
+ select * from (select rownum r_num, a.* from (
+ 
+select * from subscribe s join member_info m 
+on s.subscribe_mem_no = m.mem_no 
+where s.mem_no = #{sessionNo}  order by s.subscribe_no desc
+  
+ ) a) 
+   where r_num between #{start} and #{end} 
+
+</select>
+<!-- 끊을 갯수 -->
+<select id="totalsubscribeCount" resultType="int">
+  		select count(*) cnt from subscribe
+ </select> 
+
+
+<!-- 나를 구독하는 사람(subscriber) -->
+<select id="subscriberList" parameterType="hashMap" resultMap="subscribe_resultmap">
+
+ select * from (select rownum r_num, a.* from (
+ 
+select * from subscribe s join member_info m 
+on s.subscribe_mem_no = m.mem_no 
+where s.subscribe_mem_no = #{sessionNo} order by s.subscribe_no desc
+  
+ ) a) 
+   where r_num between #{start} and #{end} 
+
+</select>
+<!-- 끊을 갯수 -->
+<select id="totalsubscriberCount" resultType="int">
+  		select count(*) cnt from subscribe
+ </select> 
+	
+</mapper>  

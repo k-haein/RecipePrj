@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="recipe">
+	
+	
+	<resultMap type="recipeinfo" id="recipeinfo">
+		<id property="recipe_no" column="recipe_no" javaType="int"/>
+		<result property="mem_no" column="mem_no" javaType="int"/>
+		<result property="scrap_no" column="scrap_no" javaType="int"/>
+		<result property="scrap_cnt" column="scrap_cnt" javaType="int"/>
+		<result property="mem_nickname" column="mem_nickname"/>
+		<result property="recipe_title" column="recipe_title"/>
+		<result property="recipe_thumbnail" column="recipe_thumbnail"/>
+		<result property="recipe_video" column="recipe_video"/>
+		<result property="recipe_content" column="recipe_content"/>
+		<result property="recipe_time" column="recipe_time"/>
+		<result property="recipe_level" column="recipe_level"/>
+		<result property="mate_name" column="mate_name"/>
+		<result property="mate_cnt" column="mate_cnt"/>
+		<result property="step" column="step"/>
+		<result property="visit_cnt" column="visit_cnt"/>
+		<result property="report_cnt" column="report_cnt"/>
+		<result property="kind_tag_no" column="kind_tag_no" javaType="int"/>
+		<result property="theme_tag_no" column="theme_tag_no" javaType="int"/>
+		<result property="material_tag_no" column="material_tag_no" javaType="int"/>
+		<result property="recipe_uploadtime" column="recipe_uploadtime"/>
+		
+	
+	<association property="kindtag" column="kind_tag_no" javaType="kindtagvo">
+		<id property="kind_tag_no" column="kind_tag_no"/>
+		<result property="kind_tag_name" column="kind_tag_name"/>	
+	</association>
+
+
+
+	<association property="material" column="material_tag_no" javaType="materialtagvo">
+		<id property="material_tag_no" column="material_tag_no"/>
+		<result property="material_tag_name" column="material_tag_name"/>	
+	</association>
+
+
+	<association property="themetag" column="theme_tag_no" javaType="themetagvo">
+		<id property="theme_tag_no" column="theme_tag_no"/>
+		<result property="theme_tag_name" column="theme_tag_name"/>	
+	</association>
+	
+	
+
+	<association property="member" column="mem_no" javaType="membervo">
+		<id property="mem_no" column="mem_no"/>
+		<result property="mem_nickname" column="mem_nickname"/>	
+		<result property="mem_pic" column="mem_pic"/>
+	</association>
+	
+	
+	
+	<association property="review" column="review_no" javaType="reviewvo">
+		<id property="review_no" column="review_no"/>
+		<id property="mem_no" column="mem_no"/>
+		<result property="class_no" column="class_no"/>	
+		<result property="recipe_no" column="recipe_no"/>	
+		<result property="star_rate" column="star_rate"/>
+		<result property="review_content" column="review_content"/>
+		<result property="review_date" column="review_date"/>
+		<result property="review_declare" column="review_declare"/>
+	</association>	
+	
+	<association property="scrap" column="scrap_no" javaType="scrapvo">
+		<id property="scrap_no" column="scrap_no"/>
+		<result property="scrap_cnt" column="scrap_cnt"/>
+	</association>
+	
+	</resultMap>
+	
+	
+	
+	<select id="weekendBest" resultType="recipeinfo">
+	SELECT * FROM recipe_info WHERE recipe_uploadtime >= TO_CHAR(SYSDATE-7,'YYYYMMDD') order by visit_cnt desc
+	</select>
+	
+	
+	<select id="getRecipeList" resultMap="recipeinfo">
+	select * FROM
+        recipe_info r
+ JOIN member_info m
+    ON r.mem_no  = m.mem_no 
+ JOIN kind_tag k
+    ON k.kind_tag_no = r.kind_tag_no 
+JOIN theme_tag t
+    ON t.theme_tag_no = r.theme_tag_no  
+JOIN material_tag a
+    ON a.material_tag_no  = r.material_tag_no
+LEFT JOIN scrap s
+    ON r.recipe_no = s.recipe_no order by recipe_uploadtime desc  
+	</select>
+	
+	<!-- 레시피 상세보기 -->
+	<select id="getRecipe" parameterType="recipeinfo" resultMap="recipeinfo">
+	
+		select
+r.recipe_no as recipe_no , r.mem_no as mem_no, r.recipe_title as recipe_title, r.recipe_thumbnail  as recipe_thumbnail  ,
+r.recipe_video  as recipe_video , r.recipe_content as  recipe_content, r.recipe_time as recipe_time, r.recipe_level as recipe_level,
+r.mate_name as  mate_name, r.mate_cnt as mate_cnt, r.step  as step, r.kind_tag_no  as kind_tag_no , 
+r.theme_tag_no  as theme_tag_no , r.material_tag_no  as material_tag_no , r.recipe_uploadtime  as recipe_uploadtime  ,
+k.kind_tag_name  as kind_tag_name, t.theme_tag_name as theme_tag_name, a.material_tag_name as material_tag_name, 
+(select count(*) from scrap where recipe_no = #{recipe_no} ) as scrap_cnt, m.mem_nickname  as mem_nickname 
+FROM
+        recipe_info r
+ JOIN member_info m
+    ON r.mem_no  = m.mem_no 
+ JOIN kind_tag k
+    ON k.kind_tag_no = r.kind_tag_no 
+JOIN theme_tag t
+    ON t.theme_tag_no = r.theme_tag_no  
+JOIN material_tag a
+    ON a.material_tag_no  = r.material_tag_no
+LEFT JOIN scrap s
+    ON r.recipe_no    = s.recipe_no        
+    
+where r.recipe_no=#{recipe_no, jdbcType=INTEGER}
+	
+	</select>
+	
+	
+	<!-- 레시피 인서트 -->	
+	<insert id="insertRecipe" parameterType="recipeinfo">
+	<![CDATA[
+	insert into recipe_info(recipe_no, mem_no , recipe_title, recipe_thumbnail, 
+	                        recipe_video, recipe_content, recipe_time, recipe_level, mate_name, mate_cnt, step, 
+	                        visit_cnt, report_cnt, kind_tag_no, theme_tag_no, material_tag_no, recipe_uploadtime)
+	
+	values(recipe_info_seq.nextval, (select distinct mem_no from member_info where mem_no = #{mem_no}) , #{recipe_title}, #{recipe_thumbnail},
+	       #{recipe_video}, #{recipe_content}, #{recipe_time}, #{recipe_level}, #{mate_name}, #{mate_cnt}, #{step},
+	       0, 0, #{kind_tag_no}, #{theme_tag_no}, #{material_tag_no}, sysdate)
+	]]>
+	</insert>
+	
+	<!-- 레시피 업데이트 -->
+	<update id="updateRecipe" parameterType="recipeinfo">
+	<![CDATA[
+	update recipe_info set
+					   recipe_title = #{recipe_title},
+                       recipe_thumbnail = #{recipe_thumbnail},
+                       recipe_video = #{recipe_video},
+                       recipe_content = #{recipe_content}, 
+                       recipe_time = #{recipe_time}, 
+                       recipe_level = #{recipe_level}, 
+                       mate_name = #{mate_name}, 
+                       mate_cnt = #{mate_cnt}, 
+                       step = #{step}, 
+                       kind_tag_no = #{kind_tag_no}, 
+                       theme_tag_no = #{theme_tag_no},
+                       material_tag_no = #{material_tag_no}, 
+                       recipe_uploadtime = sysdate
+                       
+                       where recipe_no = (select distinct recipe_no from recipe_info where recipe_no = #{recipe_no})
+                       
+	]]>	
+	</update>
+	
+	
+	<!-- 레시피 삭제 -->
+	<delete id="deleteRecipe" parameterType="recipeinfo">
+	DELETE FROM recipe_info
+	WHERE 
+	recipe_no = #{recipe_no}
+	</delete>
+
+	<!-- 레시피 조회수 처리 -->
+	<update id="update_recipecnt" parameterType="int">
+	UPDATE recipe_info 
+	SET visit_cnt = visit_cnt + 1
+ 	WHERE 
+ 	recipe_no = #{recipe_no}
+	</update>
+	
+	<!-- 레시피 회원번호로 검색 -->
+	<select id="memtag" parameterType="int" resultType="recipeinfo">
+	select * from recipe_info where mem_no = #{mem_no}
+	</select>
+	
+	<!-- 레시피 태그로 검색하기 -->
+	<select id="kindtag" parameterType="int" resultType="recipeinfo">
+	select * from recipe_info where kind_tag_no = #{kind_tag_no}
+	</select>
+	
+	<!-- 레시피 태그로 검색하기 -->
+	<select id="materialtag" parameterType="int" resultType="recipeinfo">
+	select * from recipe_info where material_tag_no = #{material_tag_no}
+	</select>
+	
+	<!-- 레시피 태그로 검색하기 -->
+	<select id="themetag" parameterType="int" resultType="recipeinfo">
+	select * from recipe_info where theme_tag_no = #{theme_tag_no}
+	</select>
+	
+
+	<!-- 레시피 제목 검색 만들기 -->
+	<select id="recipeSubjectSearch" parameterType="String" resultType="recipeinfo">
+	select * FROM recipe_info 
+	where 
+	recipe_title like '%'||#{recipeSearch_Keyword}||'%'
+	</select>
+
+	<!-- 레시피 재료 검색 만들기 -->
+	<select id="recipeContentSearch" parameterType="String" resultType="recipeinfo">
+	select * FROM recipe_info 
+	where 
+	mate_name like '%'||#{recipeSearch_Keyword}||'%'
+	</select>
+	
+	<!-- 풋터 갯수 -->
+	<select id="footerCnt" resultType="HashMap">
+		select
+		    (select count(*) from recipe_info r, member_info m where m.mem_no=r.mem_no and m.mem_grade_no='일반인') "recipecnt"
+		    , (select count(*) from recipe_info r, member_info m where m.mem_no=r.mem_no and m.mem_grade_no!='일반인') "chefrecipecnt"
+		    , (select count(*) from class_info) "classcnt"
+		    , (select count(*) from member_info) "membercnt"
+		from dual
+	</select>
+
+   
+<!-- 이담 추가   :   인덱스 popular 상세보기 -->
+
+
+<select id="getBestRecipe"  resultMap="recipeinfo">
+
+
+select recipe_title, recipe_no
+
+from
+
+( select a.*, rownum as rank from recipe_info a order by a.visit_cnt desc )
+
+where rank = 1
+
+
+</select>  
+      
+      
+      
+<!-- 이담 추가 : 인덱스 페이지 카운팅  -->
+   
+<select id="getRecipeCnt" resultType="int">   
+   
+SELECT
+
+count(recipe_no) 
+
+FROM
+
+recipe_info r, member_info m where r.mem_no = m.mem_no and m.mem_grade_no = '일반인'
+      
+         
+</select>   
+   
+   
+   
+
+<!-- 이담 추가 : 인덱스 페이지 카운팅  -->
+   
+<select id="getChefRecipeCnt" resultType="int">   
+      
+   
+select count(recipe_no)  from recipe_info r
+
+join member_info m
+
+on m.mem_no = r.mem_no
+
+where mem_grade_no = '쉐프'
+
+
+</select>
+	
+	
+	
+	
+</mapper>

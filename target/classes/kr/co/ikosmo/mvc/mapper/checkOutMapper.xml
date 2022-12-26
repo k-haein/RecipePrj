@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chkoutdto">
+
+<select id="getChkOutList" resultType="chkoutdto" parameterType="chkoutdto">
+	   
+	select p.str_pro_no, p.str_pro_name, p.str_pro_primecost, m.mem_id, m.mem_no, c.str_cart_no, c.str_cart_cnt, p.str_pro_image 
+       , (select c.str_cart_cnt * p.str_pro_primecost from store_cart  where store_cart.str_cart_no = c.str_cart_no) as sum_str_pro_primecost  
+		from store_cart c
+       inner join store_product p
+		  on c.str_pro_no = p.str_pro_no
+       inner join member_info m
+		  on m.mem_no = c.mem_no
+	   where c.mem_no = #{mem_no}
+	   order by mem_no
+		
+</select>
+
+<select id="selectOrderNo" resultType="chkoutdto">
+
+	select to_number(order_no_sq.nextval) from dual
+
+</select>
+
+<select id="getChkOutUserList" resultType="chkoutdto" parameterType="chkoutdto">
+	   
+	 select mem_id, mem_no, mem_name, mem_email, mem_phone
+        from member_info
+       where mem_no = #{mem_no}
+		
+</select>
+
+<insert id="insertChkOut" parameterType="chkoutdto">
+
+  insert into pay_info(pay_info_no, pay_info_date, mem_no, post_num, place_addr, place_telnum, pay_info_type, str_ord_status)
+  values(pay_info_no_sq.nextval, sysdate, #{mem_no}, #{post_num}, #{place_addr}, #{place_telnum}, #{pay_info_type}, '결제완료')
+  
+</insert>
+
+<insert id="insertOrder" parameterType="chkoutdto">
+<!-- 
+insert into store_order(str_cart_no, str_ord_no, mem_no, str_pro_no, str_ord_cnt, str_ord_addr, str_ord_date)
+select str_cart_no
+      ,order_no_sq.currval
+      ,mem_no
+      ,str_pro_no
+      ,str_cart_cnt
+      ,(select place_addr from pay_info where pay_info_no = (select max(pay_info_no) from pay_info))
+      ,sysdate
+  from store_cart c
+ where mem_no = #{mem_no}
+  -->
+insert into store_order(str_cart_no, str_ord_no, mem_no, str_pro_no, str_ord_cnt, str_ord_addr, str_ord_date)
+select str_cart_no
+      ,store_order_sq.nextval
+      ,mem_no
+      ,str_pro_no
+      ,str_cart_cnt
+      ,(select place_addr from pay_info where pay_info_no = (select max(pay_info_no) from pay_info))
+      ,sysdate
+  from store_cart c
+ where mem_no = #{mem_no}
+ 
+</insert>
+
+<delete id="deleteCart" parameterType="chkoutdto">
+
+ delete store_cart
+ where mem_no = #{mem_no}
+
+</delete>
+
+</mapper>

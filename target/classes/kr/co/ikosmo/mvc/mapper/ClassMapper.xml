@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="class">
+  
+ 
+  
+<resultMap type="classvo" id="classvo">
+<id property="class_no" column="class_no" javaType="int"/>
+<result property="mem_no" column="mem_no" javaType="int"/>
+<result property="class_title" column="class_title" />
+<result property="class_thumbnail" column="class_thumbnail" />
+<result property="class_content" column="class_content" />
+<result property="class_recipe_video" column="class_recipe_video" />
+<result property="mate_name" column="mate_name"/>
+<result property="mate_cnt" column="mate_cnt" />
+<result property="step" column="step"/>
+<result property="class_price" column="class_price" />
+<result property="class_period" column="class_period" />
+<result property="class_cooktime" column="class_cooktime" />
+<result property="class_detail_info" column="class_detail_info" />
+<result property="kind_tag_no" column="kind_tag_no" javaType="int"/>
+<result property="material_tag_no" column="material_tag_no" javaType="int"/>
+<result property="theme_tag_no" column="theme_tag_no" javaType="int"/>
+<result property="class_uploadtime" column="class_uploadtime" />
+<result property="view_cnt" column="view_cnt" />
+<result property="admin_app" column="admin_app" />
+
+
+
+
+
+<association property="kindtag" column="kind_tag_no" javaType="kindtagvo">
+		<id property="kind_tag_no" column="kind_tag_no"/>
+		<result property="kind_tag_name" column="kind_tag_name"/>	
+	</association>
+
+
+
+<association property="material" column="material_tag_no" javaType="materialtagvo">
+		<id property="material_tag_no" column="material_tag_no"/>
+		<result property="material_tag_name" column="material_tag_name"/>	
+	</association>
+
+
+<association property="themetag" column="theme_tag_no" javaType="themetagvo">
+		<id property="theme_tag_no" column="theme_tag_no"/>
+		<result property="theme_tag_name" column="theme_tag_name"/>	
+	</association>
+	
+	
+
+<association property="member" column="mem_no" javaType="membervo">
+		<id property="mem_no" column="mem_no"/>
+		<result property="mem_nickname" column="mem_nickname"/>	
+		<result property="mem_pic" column="mem_pic"/>
+		<result property="mem_email" column="mem_email"/>
+	</association>		
+	
+		
+<association property="review" column="review_no" javaType="reviewvo">
+		<id property="review_no" column="review_no"/>
+		<id property="mem_no" column="mem_no"/>
+		<result property="star_rate" column="star_rate"/>	
+		<result property="type" column="type"/>	
+		<result property="review_content" column="review_content"/>
+		<result property="review_date" column="review_date"/>
+		<result property="review_declare" column="review_declare"/>
+		<result property="class_no" column="class_no"/>	
+	</association>	
+	
+	
+
+</resultMap>
+
+
+
+
+<!--    class_main    -->
+
+<select id="getClassList" resultMap="classvo">
+
+
+select 
+
+*
+
+FROM
+        class_info c
+
+ JOIN member_info m
+    ON c.mem_no  = m.mem_no 
+    
+ JOIN kind_tag k
+    ON k.kind_tag_no  = c.kind_tag_no 
+    
+JOIN theme_tag t
+    ON t.theme_tag_no   = c.theme_tag_no 
+     
+JOIN material_tag a
+    ON a.material_tag_no    = c.material_tag_no  
+ 
+where c.admin_app = 1    
+
+</select>
+
+  
+<!--    class_detail    -->
+
+  
+<select id="getClass"  resultMap="classvo" parameterType="classvo">
+
+
+
+select 
+
+	c.class_no as class_no , c.mem_no as mem_no , c.class_title as class_title, c.class_thumbnail  as class_thumbnail  ,
+	
+	c.class_recipe_video  as class_recipe_video , c.class_content as class_content ,
+	
+	c.class_price  as class_price  , c.class_period  as class_period  , c.class_cooktime  as class_cooktime ,
+		
+	c.kind_tag_no  as kind_tag_no , c.theme_tag_no  as theme_tag_no , c.material_tag_no  as material_tag_no , c.class_uploadtime  as class_uploadtime  ,	
+	
+	m.mem_id  as mem_id  , m.mem_nickname  as mem_nickname  , m.mem_pic  as mem_pic  ,	m.mem_email as mem_email,
+	
+	k.kind_tag_name  as kind_tag_name, t.theme_tag_name as theme_tag_name, a.material_tag_name as material_tag_name, 
+		
+	c.class_detail_info  as  class_detail_info, c.mate_name as  mate_name, c.mate_cnt  as   mate_cnt, c.step  as   step
+   
+
+FROM
+        class_info c
+
+ JOIN member_info m
+    ON c.mem_no  = m.mem_no 
+    
+ JOIN kind_tag k
+    ON k.kind_tag_no  = c.kind_tag_no 
+    
+JOIN theme_tag t
+    ON t.theme_tag_no   = c.theme_tag_no  
+    
+JOIN material_tag a
+    ON a.material_tag_no    = c.material_tag_no     
+
+        
+where c.class_no=#{class_no, jdbcType=INTEGER} 
+ 				
+				
+</select>
+
+
+
+
+
+
+<!--   class_write  -->
+
+<insert id="insertClass" parameterType="classvo">
+
+	
+insert into class_info(class_no , mem_no  , class_title  , class_thumbnail  , 
+
+                           class_content  ,  class_recipe_video , mate_name , mate_cnt, step, 
+                           
+                           class_price  , class_period  , class_cooktime , class_detail_info ,
+                           
+                            kind_tag_no ,theme_tag_no ,material_tag_no ,class_uploadtime, admin_app)
+   
+    
+   values(class_info_seq.nextval, #{mem_no} , #{class_title}  , #{class_thumbnail}  , 
+   
+                          #{class_content}  ,  #{class_recipe_video} , #{mate_name} , #{mate_cnt},
+                          
+                          #{step},#{class_price}, #{class_period} , #{class_cooktime}, #{class_detail_info} , 
+                          
+                           #{kind_tag_no} , #{theme_tag_no} ,#{material_tag_no} ,  sysdate, #{admin_app} )
+
+</insert>
+	
+	
+	
+ 
+
+
+<!--   class_update  -->
+ 
+ 
+<update id="updateClass" parameterType="classvo" > 
+ 
+   
+UPDATE class_info SET  
+	
+	class_title = #{class_title}, class_content = #{class_content}, class_thumbnail = #{class_thumbnail}, 
+	
+	class_recipe_video = #{class_recipe_video}, mate_name = #{mate_name} , mate_cnt = #{mate_cnt}, step = #{step}, 
+	    
+	class_price = #{class_price}, class_period = #{class_period}, class_cooktime = #{class_cooktime},
+	
+	class_detail_info = #{class_detail_info}, kind_tag_no = #{kind_tag_no} , 
+	 
+	theme_tag_no = #{theme_tag_no} , material_tag_no = #{material_tag_no}, class_uploadtime  = sysdate  , admin_app = #{admin_app}   
+                    
+
+WHERE class_no =  #{class_no}
+
+and 
+
+mem_no =  #{mem_no}
+      
+  
+</update>
+ 
+  
+ 
+
+<!--   클래스 삭제  -->
+ 
+  
+<delete id="deleteClass" parameterType="classvo">
+
+
+DELETE FROM class_info
+
+WHERE class_no =  #{class_no}
+
+	
+</delete>
+  
+  
+  
+  <!--   조회수  처리   -->
+ 
+ <update id="classViewCnt" parameterType="int">
+ 			
+ 
+ 	UPDATE class_info SET
+ 	
+ 	view_cnt = view_cnt + 1
+ 	
+ 
+ 	WHERE class_no = #{class_no}
+ 
+ 
+ </update> 
+ 
+ 
+  
+ 
+<select id="getReview" parameterType="int" resultMap="classvo">
+
+
+   
+SELECT
+
+r.review_content , c.class_no , m.mem_nickname , 
+
+r.star_rate , r.review_date , c.class_thumbnail,  c.class_title
+
+
+FROM class_info c
+
+
+JOIN review r
+
+ON c.class_no = r.class_no
+
+    
+JOIN member_info m
+
+ON c.mem_no = m.mem_no  
+
+WHERE class_no = #{class_no} 
+
+  
+</select>
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+<!--   Popular Class  -->
+
+
+<select id="popularClass" parameterType="classvo"  resultMap="classvo">
+
+
+SELECT 
+
+	c.class_no as class_no , c.mem_no as mem_no , c.class_title as class_title, c.class_uploadtime,
+	
+	c.view_cnt as view_cnt, c.class_thumbnail  as class_thumbnail, m.mem_nickname as mem_nickname,
+	
+	k.kind_tag_no , k.kind_tag_name, a.material_tag_no, a.material_tag_name,
+	
+	t.theme_tag_no, t.theme_tag_name
+
+
+FROM class_info c
+
+
+JOIN member_info m
+ 
+    ON c.mem_no  = m.mem_no 
+ 	
+    
+JOIN kind_tag k
+    ON k.kind_tag_no  = c.kind_tag_no 
+    
+JOIN theme_tag t
+    ON t.theme_tag_no   = c.theme_tag_no  
+    
+JOIN material_tag a
+    ON a.material_tag_no    = c.material_tag_no      
+        	
+
+where c.admin_app = 1   	
+ 	
+order by c.view_cnt desc
+
+
+
+</select>
+
+
+
+<!--   검색  처리    -->
+
+		
+
+<select id="classContentSearch" parameterType="String" resultType="classvo">
+
+<![CDATA[	
+	
+select 
+
+	*
+
+
+FROM
+        class_info 
+    
+		
+where mate_name like '%'||#{classSearch_keyword}||'%' 
+		 
+
+		]]>
+		
+				
+</select>
+
+
+
+<select id="classSubjectSearch" parameterType="String" resultType="classvo">
+
+<![CDATA[	
+
+select 
+
+	*
+
+
+FROM
+        class_info 
+
+		
+where class_title like '%'||#{classSearch_keyword}||'%' 
+
+		
+
+		]]>
+					
+</select>
+
+
+
+
+ <!-- class_payment   --> 
+
+<insert id="insertPayClass" parameterType="classpayinfovo">
+
+
+insert into pay_info(
+
+pay_info_no,pay_info_date,mem_no,pay_info_type,str_ord_status,class_no)
+
+
+values(pay_info_no_sq.nextval,sysdate, #{mem_no},#{pay_info_type},
+
+#{str_ord_status},  #{class_no})
+
+
+</insert>
+
+
+
+
+<select id="getPayidCk"  resultType="int" >
+
+
+select  COUNT(*) from 
+
+pay_info
+
+where class_no=#{class_no, jdbcType=INTEGER} 
+
+and mem_no = #{mem_no, jdbcType=INTEGER}
+   
+</select>
+
+
+
+
+
+
+<!--  index   세번째 섹션  -->
+
+
+<select id="getMainList" parameterType="classvo"  resultMap="classvo">
+
+
+SELECT 
+
+	c.class_no as class_no , c.mem_no as mem_no , c.class_title as class_title, c.class_uploadtime,
+	
+	c.view_cnt as view_cnt, c.class_thumbnail  as class_thumbnail, m.mem_nickname as mem_nickname,
+	
+	k.kind_tag_no , k.kind_tag_name, a.material_tag_no, a.material_tag_name,
+	
+	t.theme_tag_no, t.theme_tag_name
+
+
+FROM class_info c
+
+JOIN member_info m
+ 
+    ON c.mem_no  = m.mem_no  	
+    
+JOIN kind_tag k
+    ON k.kind_tag_no  = c.kind_tag_no 
+    
+JOIN theme_tag t
+    ON t.theme_tag_no   = c.theme_tag_no  
+    
+JOIN material_tag a
+    ON a.material_tag_no    = c.material_tag_no         
+     	 	
+order by c.view_cnt desc
+
+
+</select>
+
+
+
+
+  
+<!--   main페이지 section 두번째   -->
+
+
+  
+<select id="getFood"  resultMap="classvo" parameterType="classvo">
+
+
+select 
+
+*
+
+FROM
+        class_info c
+
+ JOIN member_info m
+    ON c.mem_no  = m.mem_no 
+ JOIN kind_tag k
+    ON k.kind_tag_no  = c.kind_tag_no 
+JOIN theme_tag t
+    ON t.theme_tag_no   = c.theme_tag_no  
+JOIN material_tag a
+    ON a.material_tag_no    = c.material_tag_no   
+ 
+ where c.kind_tag_no = #{kind_tag_no, jdbcType=INTEGER} 
+ 
+ and c.admin_app = 1 
+			
+</select>
+
+  
+   
+  
+<select id="getTheme"  resultMap="classvo" parameterType="classvo">
+
+
+select 
+
+*
+
+FROM
+        class_info c
+
+ JOIN member_info m
+    ON c.mem_no  = m.mem_no 
+ JOIN kind_tag k
+    ON k.kind_tag_no  = c.kind_tag_no 
+JOIN theme_tag t
+    ON t.theme_tag_no   = c.theme_tag_no  
+JOIN material_tag a
+    ON a.material_tag_no    = c.material_tag_no   
+ 
+ where c.theme_tag_no = #{theme_tag_no, jdbcType=INTEGER} 
+ 
+  and c.admin_app = 1  
+			
+</select>
+  
+  
+  
+<select id="getMaterial"  resultMap="classvo" parameterType="classvo">
+
+
+select 
+
+*
+
+FROM
+        class_info c
+
+ JOIN member_info m
+    ON c.mem_no  = m.mem_no 
+ JOIN kind_tag k
+    ON k.kind_tag_no  = c.kind_tag_no 
+JOIN theme_tag t
+    ON t.theme_tag_no   = c.theme_tag_no  
+JOIN material_tag a
+    ON a.material_tag_no    = c.material_tag_no   
+ 
+ where c.material_tag_no = #{material_tag_no, jdbcType=INTEGER}  
+ 
+  and c.admin_app = 1 
+			
+</select>  
+  
+  
+  
+<!-- 이담 추가 : 인덱스 페이지 카운팅  -->
+	
+<select id="getClassCnt" resultType="int">	
+	
+SELECT
+
+count(class_no) 
+
+FROM
+
+class_info 
+		
+			
+</select>	
+	
+		
+<!-- 이담 추가 : 인덱스 페이지 카운팅  -->
+	
+<select id="getMemCnt" resultType="int">	
+	
+SELECT
+
+count(mem_no) 
+
+FROM
+
+member_info 
+		
+			
+</select>	
+		 
+	
+	 
+	 
+  
+</mapper>
+

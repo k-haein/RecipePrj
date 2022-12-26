@@ -1,0 +1,947 @@
+
+
+
+
+/*    -----------------------------------------------------    랭킹 폼  ------------------------------------------------------- */
+
+
+/*    레시피 폼   */
+
+
+.ranking_form {
+	position: relative;
+	/* display: inline-block; */
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 1px solid #d5e0ed;
+	border-radius: .25rem;
+	margin: 0 25px 40px 0;
+}
+
+
+
+.ranking_num{		
+	position: absolute;	
+	width: 45px;
+	height: 45px;
+	top: -18px;
+	left: -15px;
+	background: white;
+	border-radius: 25px;  
+	border: 1px solid #d5e0ed;	
+    z-index:15;
+	
+}
+
+
+
+
+.ranking_num b{
+	float: left;
+	font-size: 25px;
+	padding: 7px 0 0 14px;
+	font-family: 'MapoPeacefull';
+	color: #85B72C;;
+	
+}
+
+
+
+
+.class_Img img{
+	
+	margin-top: 30px;
+	
+	width: 270px;
+	border-radius: 25px;  
+	
+	
+}
+
+
+
+
+.titleWrap{
+	
+	font-size: 22px;		
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 28px;
+    color: #1D2228;
+    padding :10px;
+	
+}
+
+
+
+
+
+
+
+figure.snip1477 span{
+		
+    font-family: 'Raleway', Arial, sans-serif;  
+    color: white;
+    text-align: center;
+    font-size: 16px;
+ 	
+	
+}
+
+
+
+
+figure.snip1477 {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  min-width: 230px;
+  max-width: 315px;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  font-size: 16px;
+  background-color: #000000;
+}
+
+
+figure.snip1477 *,
+figure.snip1477 *:before,
+figure.snip1477 *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.55s ease;
+  transition: all 0.55s ease;
+}
+figure.snip1477 img {
+  max-width: 100%;
+  backface-visibility: hidden;
+  vertical-align: top;
+  opacity: 0.9;
+}
+figure.snip1477 .title {
+  position: absolute;
+  top: 58%;
+  left: 25px;
+  padding: 5px 10px 10px;
+}
+figure.snip1477 .title:before,
+figure.snip1477 .title:after {
+  height: 2px;
+  width: 400px;
+  position: absolute;
+  content: '';
+  background-color: #ffffff;
+}
+figure.snip1477 .title:before {
+  top: 0;
+  left: 10px;
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+figure.snip1477 .title:after {
+  bottom: 0;
+  right: 10px;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+figure.snip1477 .title div:before,
+figure.snip1477 .title div:after {
+  width: 2px;
+  height: 300px;
+  position: absolute;
+  content: '';
+  background-color: #ffffff;
+}
+figure.snip1477 .title div:before {
+  top: 10px;
+  right: 0;
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+}
+figure.snip1477 .title div:after {
+  bottom: 10px;
+  left: 0;
+  -webkit-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+
+
+figure.snip1477 h2, figure.snip1477 h4 {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+
+/*          --------------수정  -----------------*/
+
+
+figure.snip1477 h2 {
+	
+  font-weight: 600;
+  color: #4e7548; 
+  background-color: #e7ede6;
+ 
+  
+}
+
+
+
+
+figure.snip1477 h4 {
+  display: block;
+  font-weight: 700;
+  background-color: #ffffff;
+  padding: 5px 10px;
+  color: #000000;
+}
+figure.snip1477 figcaption {
+  position: absolute;
+  bottom: 42%;
+  left: 25px;
+  text-align: left;
+  opacity: 0;
+  padding: 5px 60px 5px 10px;
+  font-size: 0.8em;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+}
+
+
+/*   ------------------수정---------------*/
+figure.snip1477 figcaption p {
+  margin: 0;
+  color: #ebf0e4;
+  
+}
+
+
+
+figure.snip1477 a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+figure.snip1477:hover img,
+figure.snip1477.hover img {
+  zoom: 1;
+  filter: alpha(opacity=35);
+  -webkit-opacity: 0.35;
+  opacity: 0.35;
+}
+figure.snip1477:hover .title:before,
+figure.snip1477.hover .title:before,
+figure.snip1477:hover .title:after,
+figure.snip1477.hover .title:after,
+figure.snip1477:hover .title div:before,
+figure.snip1477.hover .title div:before,
+figure.snip1477:hover .title div:after,
+figure.snip1477.hover .title div:after {
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+figure.snip1477:hover .title:before,
+figure.snip1477.hover .title:before,
+figure.snip1477:hover .title:after,
+figure.snip1477.hover .title:after {
+  -webkit-transition-delay: 0.15s;
+  transition-delay: 0.15s;
+}
+figure.snip1477:hover figcaption,
+figure.snip1477.hover figcaption {
+  opacity: 1;
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+}
+
+
+
+
+.tab_line{
+	positon:absoulte;
+	margin: -2px 0px 0px -10%;
+	border-top: 1px solid #f7f4ee;;	
+	z-index: 1;	
+}
+
+
+.tabMenu1, .tabMenu2, .tabMenu3, .tabMenu4{
+	display: inline-block;	 	
+	position:relative;	
+	padding: 10px;	
+	width: 150px;
+	height: 50px;
+ 	border-radius: 5px;  
+	border-top: 1px solid #f7f4ee;;	
+	border-left: 1px solid #f7f4ee;;	
+	border-right: 1px solid #f7f4ee;;
+	border-bottom: 2px solid #ffffff;
+	margin: 20px 0px 0px 0px;	
+	z-index: 2;
+	
+}
+
+
+
+
+.tabMenu1 a, .tabMenu3 a{ 	
+	text-decoration:none ;
+	color: #4d6685; 
+	margin: 0px 0px 0px 30%;	
+} 
+
+
+.tabMenu2 a, .tabMenu4 a{ 	
+	text-decoration:none ;
+	color: #4d6685; 
+	margin: 0px 0px 0px 35%;	
+} 
+
+
+
+.tabMenu1:hover, .tabMenu2:hover, .tabMenu3:hover, .tabMenu4:hover, .tabMenu1 a:hover, .tabMenu2 a:hover, .tabMenu3 a:hover, .tabMenu4 a:hover{
+	
+	background:#f7f4ee; 
+	color: white;
+}
+
+
+
+
+
+#btn_group{
+	display: inline-block;	
+	margin: 20px 0px 0px 80%;
+	padding: 20px;
+	
+}
+
+
+
+#tab_btn1, #tab_btn2, #tab_btn3, #tab_btn4 {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	margin-right: -5px;
+	
+}
+
+#btn_group button {	
+	border: 1px solid #d5e0ed;
+	background-color: #e6e9ed;
+	color: #4d6685;
+	padding: 13px;
+	font-size: 15px;
+	font-family: 'GmarketSansBold';
+}
+
+#btn_group button:hover {
+	color: white;
+	background-color: #586c80;
+}
+
+
+/*    레시피 폼   */
+
+
+
+
+
+
+/*   쉐프 폼 */ 
+
+
+
+
+.chefsection{
+	
+	display:inline-block;	
+	
+}
+
+
+.row c{
+	
+	padding: 3px 17px; 
+    background: white;
+    border-radius: 15%;
+    border: 1px solid #d5e0ed;
+ 	font-family: 'Playfair Display', serif;
+    font-weight: 700;
+	font-size: 25px;
+	margin: 0 0 0 45px;
+    
+}
+
+
+
+.reviewTitle{
+	
+	margin: 50px 0 0 0px;
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;
+	font-size: 30px;
+	padding: 15px;
+}
+
+
+
+
+
+
+.thired_table{
+	
+	background-color: white; 
+	border-radius: 50px;  
+	
+}
+
+
+
+.table_line1 tr{
+   
+   border-radius: 50px;  
+   
+}
+
+
+
+
+.table_line1 table th, table td {
+    padding: 30px;
+    vertical-align: middle;
+}
+
+
+.table_line1 p1{
+	
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;  
+    font-size: 17px;  
+    color: #8498b8;    
+  
+  
+}
+
+
+.table_line1 p1:hover{
+	
+    color: #4d596b;    
+  
+  
+}
+
+
+.table_line1 p2{
+	
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #1D2228;
+    font-size: 17px;
+   
+} 
+
+.table_line1 p6{
+	
+	color: #8498b8;
+	
+}
+
+
+
+.table_line1 p3 img{
+	
+	width: 350px;
+	border-radius: 25px;  
+}
+
+
+
+.table_line1 p5 img{
+	
+	 width: 140px;
+    border-radius: 50%;  
+	
+}
+
+
+
+
+
+
+
+
+
+
+.pay_table{
+	
+	background-color: white; 
+	border-radius: 50px;  
+	
+}
+
+
+
+.table_line2 tr{
+   
+   border-radius: 50px;  
+   
+}
+
+
+
+
+.table_line2 table th, table td {
+    padding: 30px;
+    vertical-align: middle;
+}
+
+
+.table_line2 p1{
+	
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;  
+    font-size: 17px;  
+    color: #8498b8;    
+  
+  
+}
+
+
+.table_line2 p1:hover{
+	
+    color: #4d596b;    
+  
+  
+}
+
+
+.table_line2 p2{
+	
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #1D2228;
+    font-size: 17px;
+   
+} 
+
+.table_line2 p6{
+	
+	color: red;
+	
+}
+
+
+
+.table_line2 p3 img{
+	
+	width: 350px;
+	border-radius: 25px;  
+}
+
+
+
+.table_line2 p5 img{
+	
+	 width: 140px;
+    border-radius: 50%;  
+	
+}
+
+
+
+.review_table{	
+	 border: 1px solid #d5e0ed;	
+}
+
+
+
+.review_table tr{
+   
+   border-radius: 50px;  
+   
+}
+
+.review_table td{
+	
+	 border-left: 1px dotted #d5e0ed;	
+    border-bottom: 1px dotted #d5e0ed;
+}
+
+
+
+.review_table table th, table td {
+    padding: 30px;
+    vertical-align: middle;
+}
+
+
+
+
+
+
+
+
+
+.slide p1{
+	
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;  
+    font-size: 17px;  
+    color: #8498b8;    
+  
+  
+}
+
+
+.slide p2{
+	
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #1D2228;
+    font-size: 17px;
+   
+} 
+
+
+.slide p3 img{
+	
+	width: 300px;
+	board-radius: 15%; 
+	
+}
+
+
+
+.slide p4 img{
+	
+	width: 200px;
+	board-radius: 50px;	
+	border-radius: 50%;
+	
+}
+
+
+
+.slide{
+    
+    margin:50px 0 0 0px;
+    height:220px;
+    overflow:hidden;
+    
+}
+    
+.slide ul{
+	
+	height:calc(100% * 4);animation:slide 8s infinite;
+	
+}
+    
+.slide span{
+	height:calc(100% / 4);
+	
+}
+
+
+@keyframes slide {
+      0% {margin-top:0;}
+      10% {margin-top:0;}
+      25% {margin-top:-150px;}
+      35% {margin-top:-150px;}
+      50% {margin-top:-350px;}
+      60% {margin-top:-350px;}
+      75% {margin-top:-600px;}
+      85% {margin-top:-600px;}
+      100% {margin-top:0;}
+}
+  
+
+
+
+
+/*  chef 폼  */
+
+
+
+.parent{
+    width: 100%;
+    margin: 10px auto;
+    display: flex;
+}
+
+.first {
+	border-radius: 25px;
+	border: 1px dotted #d5e0ed; 
+    flex:1;
+    width:35%;
+    box-sizing: border-box;
+    background-color: #f0f2f5;
+}
+
+.second{
+	border-radius: 25px;
+   border: 1px dotted #d5e0ed;
+    flex:1;
+    margin: 0px 5%;
+    width:35%;
+    box-sizing: border-box;
+    background-color: #f0f2f5;
+}
+
+.third{
+	border-radius: 25px;
+    border: 1px dotted #d5e0ed;
+    flex:1;
+    width:35%;
+    box-sizing: border-box;
+    background-color: #f0f2f5;
+}
+
+
+
+
+.titleWrap{
+	
+	margin-top: 50px;
+	
+}
+
+
+.subWrap{
+	margin-top: 10px;
+		
+}
+
+.chefRkTitle1{
+	
+	color: #71a35b;
+    font-family: "Playfair Display", sans-serif;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 400px;
+    margin-left: 7%;
+   
+	
+}
+
+.chefRkTitle2{
+	
+	color: #71a35b;
+    font-family: "Playfair Display", sans-serif;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 400px;
+    margin-left: 23%;
+	
+}
+
+
+.chefRkTitle3{
+	
+	color: #71a35b;
+    font-family: "Playfair Display", sans-serif;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 400px;
+    margin-left: 27%;
+	
+}
+
+
+
+.chefRksub1{
+	
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 28px;
+    color: #1D2228;
+    font-size: 19px;
+    margin-left: 2%;
+    
+	
+}
+
+
+.chefRksub2{
+	
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 28px;
+    color: #1D2228;
+    font-size: 19px;
+     margin-left: 12%;
+	
+}
+
+
+
+.chefRksub3{
+	
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 28px;
+    color: #1D2228;
+    font-size: 19px;
+      margin-left: 11%;
+	
+}
+
+
+
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400);
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+
+figure.snip1368 {
+  font-family: 'Roboto', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  min-width: 210px;
+  max-width: 285px;
+  width: 100%;
+  color: #ffffff;
+  line-height: 1.4em;
+  border-radius: 35px;
+  left: 12px;	  
+}
+figure.snip1368 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+figure.snip1368 img {
+  opacity: 1;
+  width: 100%;
+  vertical-align: top;
+}
+figure.snip1368 h3 {
+  position: absolute;
+  top: 0%;
+  width: 100%;
+  background-color: #212121;
+  z-index: 1;
+  text-align: right;
+  padding: 15px 25px 0px;
+  margin: 0;
+  font-weight: 300;
+  font-size: 1.3em;
+  -webkit-transform: translateY(-200%);
+  transform: translateY(-200%);
+}
+figure.snip1368 h3:before {
+  position: absolute;
+  content: '';
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 315px 55px 0;
+  border-color: transparent #212121 transparent transparent;
+}
+figure.snip1368 figcaption {
+  padding: 5px 25px 15px;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  bottom: 0%;
+  background-color: #141414;
+  -webkit-transform: translateY(200%);
+  transform: translateY(200%);
+}
+figure.snip1368 figcaption:before {
+  position: absolute;
+  content: '';
+  bottom: 100%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 55px 0 0 315px;
+  border-color: transparent transparent transparent #141414;
+}
+figure.snip1368 .icons {
+  margin-top: -20px;
+}
+figure.snip1368 i {
+  padding: 0px 8px;
+  display: inline-block;
+  font-size: 24px;
+  color: #ffffff;
+  text-align: center;
+  opacity: 0.7;
+}
+figure.snip1368 i:hover {
+  opacity: 1;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+figure.snip1368:hover h3,
+figure.snip1368.hover h3 {
+  -webkit-transform: translateY(0%);
+  transform: translateY(0%);
+}
+figure.snip1368:hover figcaption,
+figure.snip1368.hover figcaption {
+  -webkit-transform: translateY(0%);
+  transform: translateY(0%);
+}
+
+
+
+.first n1, .second n1, .third n1{
+	
+	color: #71a35b;
+   font-family: 'Playfair Display', serif;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 400px;
+    margin-left: 45%;
+	
+	
+}
+
+
+.first n2, .second n2, .third n2{
+	
+   font-family: 'Playfair Display', serif;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 400px;
+	
+	
+}
+
+.first n4, .second n4, .third n4{
+	padding: 3px 17px; 
+    background: white;
+    border-radius: 50%;
+    border: 1px solid #d5e0ed;
+ 	font-family: 'Playfair Display', serif;
+    font-weight: 700;
+	font-size: 27px;
+	margin: 15px 0 0 10px;
+	
+	
+}
+
+
+
+
+
+
+
+
+/*    -----------------------------------------------------    랭킹 폼  ------------------------------------------------------- */
+
+
+
+

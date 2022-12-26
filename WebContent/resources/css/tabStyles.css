@@ -1,0 +1,50 @@
+*{
+	margin:0;
+	padding:0;
+	list-style-type:none;
+}
+
+.all{
+	width:610px;
+}
+
+ul{
+	overflow:hidden;
+	padding:12px 12px 0;
+	
+	border-radius:4px;
+	*zoom:1; /* ie clear float */
+}
+	ul li{
+		float:left;
+		padding:0 4px 0 0;
+	}
+		ul li a{
+			float:left;
+			color:#333;
+			
+			padding:.45em 1.25em;
+			display:none;
+			border-radius:4px 4px 0 0;
+			text-shadow:0 0 3px #fff;
+			font-weight:bold;
+			text-decoration:none;
+			
+		}
+		ul li a:hover{
+			text-decoration:underline;
+		}
+		ul li a.on{
+			
+			color:#333;
+			cursor:default;
+		}
+		ul li a.on:hover{
+			text-decoration:none;
+		}
+.panel{
+	
+	padding:.75em 15px .4em;
+	margin:0 0 .5em;
+	width:570px;
+}

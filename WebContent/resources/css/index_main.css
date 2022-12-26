@@ -1,0 +1,18 @@
+
+dd1:hover{
+    color: inherit;
+    text-decoration: none;
+} 
+
+
+
+.post-categories dd1 {
+    display: inline-block;
+    padding: 3px 12px;
+    color: #ff6767;
+    background-color: #ffdbdb;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 0 2px 5px 0;
+    font-size: 13px;
+}

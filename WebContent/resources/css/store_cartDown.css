@@ -1,0 +1,312 @@
+.cart_bnt {
+	display: flex;
+	align-items: center
+}
+
+.cart_bnt li {
+	margin: 0
+}
+
+.cart_bnt li.cart-dropdown-wrapper, .header-controls-inner li.search-dropdown-wrapper
+	{
+	padding: 30px 15px;
+	position: relative;
+	line-height: .9
+}
+
+.cart_bnt li.cart-dropdown-wrapper i,
+	.header-controls-inner li.search-dropdown-wrapper i {
+	position: relative;
+	cursor: pointer
+}
+
+.cart_bnt li.cart-dropdown-wrapper i:after {
+	content: "";
+	position: absolute;
+	top: 18px;
+	left: 9.5px;
+	width: 5px;
+	height: 5px;
+	background-color: #85b72c;
+	border-radius: 50%;
+	transition: .3s;
+	transform: scale(0)
+}
+
+.cart_bnt li.search-dropdown-wrapper {
+	padding-right: 0
+}
+
+.cart_bnt li i {
+	font-size: 24px;
+	transition: .3s
+}
+
+.header-controls-inner li:hover i {
+	color: #85b72c
+}
+
+.sidenav {
+	position: absolute;
+	top: 110%;
+	right: 0;
+	opacity: 0;
+	padding: 20px;
+	visibility: hidden;
+	transition: .3s;
+	background-color: #fff;
+	box-shadow: 0 2px 32px rgba(0, 0, 0, .15);
+	min-width: 300px;
+	z-index: 990;
+	cursor: default;
+	border-radius: 8px
+}
+
+.cart-dropdown-wrapper.open .cart-dropdown {
+	top: 100%;
+	opacity: 1;
+	visibility: visible
+}
+
+.header-controls-inner li.cart-dropdown-wrapper.open i {
+	color: #85b72c
+}
+
+.header-controls-inner li.cart-dropdown-wrapper.open i:after {
+	transform: scale(1)
+}
+
+.sidenav li {
+	padding: 20px 0;
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	font-weight: 600;
+	line-height: 24px
+}
+
+.sidenav li.cart-item:first-child {
+	padding-top: 0
+}
+
+.cart-item {
+	display: flex;
+	align-items: flex-start
+}
+
+.cart-item img {
+	width: 60px;
+	margin-right: 15px
+}
+
+.cart-item-body {
+	flex: 1
+}
+
+.cart-item-body span {
+	font-size: 14px
+}
+
+.cart-item-body a {
+	display: block;
+	color: #1d2228;
+	font-weight: 700;
+	font-size: 15px;
+	margin-bottom: 5px;
+	font-family: Playfair Display, serif
+}
+
+.cart-item-body a:hover {
+	color: #ff6767
+}
+
+.sidenav .cart-subtotal p {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0;
+	justify-content: space-between;
+	color: #1d2228;
+	font-weight: 700
+}
+
+.sidenav li.cart-buttons {
+	padding-bottom: 0;
+	border-bottom: 0
+}
+
+.search-form-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	background-color: rgba(0, 0, 0, .8);
+	padding: 20px;
+	opacity: 0;
+	visibility: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: .3s
+}
+
+.search-form-wrapper.open {
+	opacity: 1;
+	visibility: visible
+}
+
+.search-form-wrapper .close-btn {
+	position: absolute;
+	top: 60px;
+	right: 60px
+}
+
+.search-form-wrapper .close-btn span {
+	height: 0;
+	transition-duration: .3s
+}
+
+.search-form-wrapper.open .close-btn span {
+	height: 40px
+}
+
+.search-form-wrapper form {
+	position: relative;
+	width: 70%;
+	transition-duration: .3s;
+	transition-delay: .3s;
+	transform: scale(.5);
+	opacity: 0;
+	visibility: hidden
+}
+
+.search-form-wrapper.open form {
+	transform: scale(1);
+	opacity: 1;
+	visibility: visible
+}
+
+.search-form-wrapper form input {
+	background-color: initial;
+	border: 0;
+	border-bottom: 2px solid #fff;
+	padding: 20px 0;
+	font-size: 40px;
+	width: 100%;
+	outline: none;
+	color: #fff
+}
+
+.search-form-wrapper form input::placeholder {
+	color: #fff
+}
+
+.search-form-wrapper .search-btn:focus, .search-form-wrapper form input:focus
+	{
+	outline: none
+}
+
+.search-form-wrapper .search-btn {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+	background-color: initial;
+	border: 0;
+	color: #fff;
+	font-size: 30px;
+	outline: none;
+	transition: .3s;
+	cursor: pointer;
+	padding: 0
+}
+
+.search-form-wrapper .search-btn:hover {
+	color: #85b72c
+}
+
+
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {    
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}

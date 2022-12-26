@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="review">
+   
+  
+
+<select id="getReview"  resultType="reviewjoinvo" parameterType="reviewjoinvo">
+
+
+select 
+
+    r.review_no, r.star_rate, r.review_content,r.review_date,r.mem_no,r.class_no ,r.type,
+    
+    m.mem_pic , m.mem_nickname
+   
+
+FROM
+        review  r
+
+JOIN member_info m
+
+ON m.mem_no = r.mem_no
+
+where class_no=#{class_no, jdbcType=INTEGER} 
+
+order by review_date
+
+ 				
+</select> 				
+
+
+
+
+
+<insert id="insertClassReview" parameterType="reviewvo">
+
+
+INSERT INTO review( review_no, class_no, mem_no , type, star_rate, review_content, review_date)
+
+VALUES(review_seq.nextval,#{class_no}, #{mem_no}, #{type}, #{star_rate},#{review_content},sysdate)
+				
+				
+</insert>
+
+
+
+<!--   클래스 삭제  -->
+ 
+  
+<delete id="deleteClassReview" parameterType="int">
+
+
+DELETE FROM review
+
+WHERE review_no =  #{review_no}
+
+	
+</delete>
+  
+
+
+
+  
+  </mapper>

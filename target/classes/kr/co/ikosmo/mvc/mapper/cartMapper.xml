@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cartdto">
+
+<select id="getCartList" resultType="cartdto" parameterType="CartDTO">
+<!-- 	  
+	select str_cart_no, p.str_pro_no, mem_id, m.mem_no, p.str_pro_name, str_cart_cnt, str_pro_image, str_pro_salescost 
+      ,(select c.str_cart_cnt * p.str_pro_salescost from store_cart  where store_cart.str_cart_no = c.str_cart_no) as sum_str_pro_salescost
+	  from member_info m
+	  inner join store_cart c
+	     on m.mem_no=c.mem_no
+	  inner join store_product p
+	     on c.str_pro_no=p.str_pro_no
+	  where m.mem_no=#{mem_no}		
+	  order by str_cart_no
+ -->   
+ 
+ 	select str_cart_no, p.str_pro_no, mem_id, m.mem_no, p.str_pro_name, str_cart_cnt, str_pro_image, str_pro_primecost 
+      ,(select c.str_cart_cnt * p.str_pro_primecost from store_cart  where store_cart.str_cart_no = c.str_cart_no) as sum_str_pro_primecost
+	  from member_info m
+	  inner join store_cart c
+	     on m.mem_no=c.mem_no
+	  inner join store_product p
+	     on c.str_pro_no=p.str_pro_no
+	  where m.mem_no=#{mem_no}		
+	  order by str_cart_no
+	  
+</select>
+
+<update id="getUpdateList" parameterType="cartDTO">
+
+	update store_cart set str_cart_cnt = #{str_cart_cnt}
+	where str_cart_no = #{str_cart_no}
+
+</update>
+
+<delete id="getDeleteList">
+
+	delete from store_cart
+		where str_cart_no = #{str_cart_no}
+
+</delete>
+    
+</mapper>

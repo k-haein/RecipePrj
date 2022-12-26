@@ -1,0 +1,530 @@
+
+
+
+
+/*    -----------------------------------------------------    랭킹 폼  ------------------------------------------------------- */
+
+
+
+
+
+
+
+/*    레시피 폼   */
+
+
+.ranking_form {
+	position: relative;
+	display: inline-block;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 1px solid #d5e0ed;
+	border-radius: .25rem;
+	margin: 0 25px 40px 0;
+}
+
+
+
+.ranking_num{		
+	position: absolute;	
+	width: 45px;
+	height: 45px;
+	top: -15px;
+	left: -15px;
+	background: white;
+	border-radius: 25px;  
+	border: 1px solid #d5e0ed;	
+    z-index:300;
+	
+}
+
+.ranking_num b{
+	font-size: 27px;
+	padding: 12px;
+	font-family: 'MapoPeacefull';
+	color: #4d6685;
+	
+}
+
+
+
+
+figure.snip1477 {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  min-width: 230px;
+  max-width: 315px;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  font-size: 16px;
+  background-color: #000000;
+}
+figure.snip1477 *,
+figure.snip1477 *:before,
+figure.snip1477 *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.55s ease;
+  transition: all 0.55s ease;
+}
+figure.snip1477 img {
+  max-width: 100%;
+  backface-visibility: hidden;
+  vertical-align: top;
+  opacity: 0.9;
+}
+figure.snip1477 .title {
+  position: absolute;
+  top: 58%;
+  left: 25px;
+  padding: 5px 10px 10px;
+}
+figure.snip1477 .title:before,
+figure.snip1477 .title:after {
+  height: 2px;
+  width: 400px;
+  position: absolute;
+  content: '';
+  background-color: #ffffff;
+}
+figure.snip1477 .title:before {
+  top: 0;
+  left: 10px;
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+figure.snip1477 .title:after {
+  bottom: 0;
+  right: 10px;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+figure.snip1477 .title div:before,
+figure.snip1477 .title div:after {
+  width: 2px;
+  height: 300px;
+  position: absolute;
+  content: '';
+  background-color: #ffffff;
+}
+figure.snip1477 .title div:before {
+  top: 10px;
+  right: 0;
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+}
+figure.snip1477 .title div:after {
+  bottom: 10px;
+  left: 0;
+  -webkit-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+figure.snip1477 h2,
+figure.snip1477 h4 {
+  margin: 0;
+  text-transform: uppercase;
+}
+figure.snip1477 h2 {
+  font-weight: 400;
+}
+figure.snip1477 h4 {
+  display: block;
+  font-weight: 700;
+  background-color: #ffffff;
+  padding: 5px 10px;
+  color: #000000;
+}
+figure.snip1477 figcaption {
+  position: absolute;
+  bottom: 42%;
+  left: 25px;
+  text-align: left;
+  opacity: 0;
+  padding: 5px 60px 5px 10px;
+  font-size: 0.8em;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+}
+figure.snip1477 figcaption p {
+  margin: 0;
+}
+figure.snip1477 a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+figure.snip1477:hover img,
+figure.snip1477.hover img {
+  zoom: 1;
+  filter: alpha(opacity=35);
+  -webkit-opacity: 0.35;
+  opacity: 0.35;
+}
+figure.snip1477:hover .title:before,
+figure.snip1477.hover .title:before,
+figure.snip1477:hover .title:after,
+figure.snip1477.hover .title:after,
+figure.snip1477:hover .title div:before,
+figure.snip1477.hover .title div:before,
+figure.snip1477:hover .title div:after,
+figure.snip1477.hover .title div:after {
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+figure.snip1477:hover .title:before,
+figure.snip1477.hover .title:before,
+figure.snip1477:hover .title:after,
+figure.snip1477.hover .title:after {
+  -webkit-transition-delay: 0.15s;
+  transition-delay: 0.15s;
+}
+figure.snip1477:hover figcaption,
+figure.snip1477.hover figcaption {
+  opacity: 1;
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+}
+
+
+
+
+.tab_line{
+	positon:absoulte;
+	margin: -2px 0px 0px -10%;
+	border-top: 1px solid #f7f4ee;;	
+	z-index: 1;	
+}
+
+
+.tabMenu1{
+	display: inline-block;	 	
+	position:relative;	
+	padding: 10px;	
+	width: 150px;
+	height: 50px;
+ 	border-radius: 5px;  
+	border-top: 1px solid #f7f4ee;;	
+	border-left: 1px solid #f7f4ee;;	
+	border-right: 1px solid #f7f4ee;;
+	border-bottom: 2px solid #ffffff;
+	margin: 20px 0px 0px 0px;	
+	z-index: 2;
+	
+}
+
+
+
+.tabMenu2{
+	display: inline-block;	 	
+	position:relative;	
+	padding: 10px;
+	background: transparent;	
+	width: 150px;
+	height: 50px;
+ 	border-radius: 5px;  
+	border-top: 1px solid #f7f4ee;	
+	border-left: 1px solid#f7f4ee;	
+	border-right: 1px solid #f7f4ee;		
+	margin: 20px 0px 0px 10px;	
+	z-index: 2;
+	
+}
+
+
+.tabMenu1 a{ 	
+	text-decoration:none ;
+	color: #4d6685; 
+	margin: 0px 0px 0px 30%;	
+} 
+
+
+.tabMenu2 a{ 	
+	text-decoration:none ;
+	color: #4d6685; 
+	margin: 0px 0px 0px 35%;	
+} 
+
+
+
+
+.tabMenu1:hover, .tabMenu2:hover, .tabMenu1 a:hover, .tabMenu2 a:hover{
+	
+	background:#f7f4ee; 
+	color: white;
+}
+
+
+
+
+
+#btn_group{
+	display: inline-block;	
+	margin: 20px 0px 0px 80%;
+	padding: 20px;
+	
+}
+
+
+
+#tab_btn1 {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	margin-right: -5px;
+	
+}
+
+#tab_btn2 {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-left: -5px;
+}
+
+#btn_group button {	
+	border: 1px solid #d5e0ed;
+	background-color: #e6e9ed;
+	color: #4d6685;
+	padding: 13px;
+	font-size: 15px;
+	font-family: 'GmarketSansBold';
+}
+
+#btn_group button:hover {
+	color: white;
+	background-color: #586c80;
+}
+
+
+/*    레시피 폼   */
+
+
+
+
+
+
+/*   쉐프 폼 */ 
+
+
+
+.ranking_chef_form {
+	position: relative;
+	display: inline-block;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+/* 	border: 1px solid #d5e0ed; */
+	border-radius: .25rem;
+	margin: 0 25px 40px 0;
+}
+
+
+.ranking_chef_num{		
+	position: absolute;	
+	width: 45px;
+	height: 45px;
+	top: 15px;
+	left: 25px;
+	background: white;
+	border-radius: 10px;  
+	border: 1px solid #d5e0ed;	
+    z-index:300;
+	
+}
+
+.ranking_chef_num b{
+	font-size: 27px;
+	padding: 12px;
+	font-family: 'MapoPeacefull';
+	color: #4d6685;
+	
+}
+
+
+
+
+figure.snip1478 {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  min-width: 100px;
+  max-width: 220px; 
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  font-size: 16px;
+  background-color: #000000;
+  border-radius: 250px;
+  
+  
+}
+figure.snip1478 *,
+figure.snip1478 *:before,
+figure.snip1478 *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.55s ease;
+  transition: all 0.55s ease;
+}
+figure.snip1478 img {
+  max-width: 100%;
+  backface-visibility: hidden;
+  vertical-align: top;
+  opacity: 0.9;
+}
+figure.snip1478 .title {
+  position: absolute;
+  top: 45%;
+  left: 43px;
+  padding: 5px 10px 10px;
+}
+figure.snip1478 .title:before,
+figure.snip1478 .title:after {
+  height: 2px;
+  width: 400px;
+  position: absolute;
+  content: '';
+  background-color: #ffffff;
+}
+figure.snip1478 .title:before {
+  top: 0;
+  left: 10px;
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+figure.snip1478 .title:after {
+  bottom: 0;
+  right: 10px;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+figure.snip1478 .title div:before,
+figure.snip1478 .title div:after {
+  width: 2px;
+  height: 300px;
+  position: absolute;
+  content: '';
+  background-color: #ffffff;
+}
+figure.snip1478 .title div:before {
+  top: 10px;
+  right: 0;
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+}
+figure.snip1478 .title div:after {
+  bottom: 10px;
+  left: 0;
+  -webkit-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+figure.snip1478 h2,
+figure.snip1478 h4 {
+  margin: 0;
+  text-transform: uppercase;
+}
+figure.snip1478 h2 {
+  font-weight: 400;
+}
+figure.snip1478 h4 {
+  display: block;
+  font-weight: 700;
+  background-color: #ffffff;
+  padding: 5px 10px;
+  color: #000000;
+}
+figure.snip1478 figcaption {
+  position: absolute;
+  bottom: 42%;
+  left: 25px;
+  text-align: left;
+  opacity: 0;
+  padding: 5px 60px 5px 10px;
+  font-size: 0.8em;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+}
+figure.snip1478 figcaption p {
+  margin: 0;
+}
+figure.snip1478 a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+figure.snip1478:hover img,
+figure.snip1478.hover img {
+  zoom: 1;
+  filter: alpha(opacity=35);
+  -webkit-opacity: 0.35;
+  opacity: 0.35;
+}
+figure.snip1478:hover .title:before,
+figure.snip1478.hover .title:before,
+figure.snip1478:hover .title:after,
+figure.snip1478.hover .title:after,
+figure.snip1478:hover .title div:before,
+figure.snip1478.hover .title div:before,
+figure.snip1478:hover .title div:after,
+figure.snip1478.hover .title div:after {
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+figure.snip1478:hover .title:before,
+figure.snip1478.hover .title:before,
+figure.snip1478:hover .title:after,
+figure.snip1478.hover .title:after {
+  -webkit-transition-delay: 0.15s;
+  transition-delay: 0.15s;
+}
+figure.snip1478:hover figcaption,
+figure.snip1478.hover figcaption {
+  opacity: 1;
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*    -----------------------------------------------------    랭킹 폼  ------------------------------------------------------- */
+
+

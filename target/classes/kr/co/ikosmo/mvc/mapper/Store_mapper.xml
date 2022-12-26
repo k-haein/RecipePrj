@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="store">
+<!-- 페이징처리 -->
+ <select id="list" resultType="str" parameterType="pagevo">
+	select * from (
+	select rownum r_num, a.* from
+	(
+	select * from store_product
+	<if test="searchType != null">
+		<where>
+			<choose>
+				<when test="searchType == 1">
+					str_pro_show = 1 and 
+					str_pro_no = #{searchValue}
+				</when>
+				<when test="searchType == 2">
+					str_pro_show = 1 and 
+					str_pro_name like '%'|| #{searchValue} ||'%'
+				</when>
+			</choose>
+		</where>
+	</if>
+	order by str_pro_no desc
+	) a
+	) where r_num between #{start} and #{end}
+</select>
+<!-- 페이징처리 -->
+<select id="totalCount" resultType="int" parameterType="pagevo">
+	select count(*) cnt from store_product
+	<if test="searchType != null">
+		<where>
+			<choose>
+				<when test="searchType == 1">
+					str_pro_show = 1 and 
+					str_pro_no = #{searchValue}
+				</when>
+				<when test="searchType == 2">
+					str_pro_show = 1 and 
+					str_pro_name like '%'|| #{searchValue} ||'%'
+				</when>
+			</choose>
+		</where>
+	</if>
+</select> 
+<!-- 상세보기 -->
+ <select id="product" resultType="str" parameterType="int">
+	select str_pro_primecost, str_pro_image, str_pro_detail_image, str_pro_name,str_pro_name,str_pro_content from store_product where str_pro_no=#{str_pro_no}
+ </select> 
+
+ <!-- 카테고리로 조회 -->
+ <select id="shop_category" parameterType="int" resultType="str">
+	select * from store_product where shop_category_no = #{shop_category_no}
+	</select>
+<!-- 리뷰 인서트 -->
+ <insert id="reviewInsert" parameterType="storeReview">
+   insert into store_review (STORE_REVIEW_NO
+,STR_PRO_NO
+,MEM_NO
+,MEM_NAME
+,EMAIL
+,SCORE
+,STORE_REVIEW_CONTENT
+,STORE_REVIEW_DATE)
+  	VALUES(store_review_no_sq.nextval, '26', '5',#{mem_name},#{email},#{score}, #{store_review_content}, sysdate)
+  </insert>
+  <!-- 리뷰 셀렉트 --> <!-- order by 1 desc -->
+  <select id="reviewSelect" resultType="storeReview" parameterType="int">
+	select * from store_review where str_pro_no = #{str_pro_no} 
+	</select>
+	
+<insert id="insertCart" parameterType="Cartdto">
+   insert into store_cart values(str_cart_no_sq.nextval,#{mem_no},#{str_pro_no},#{str_cart_cnt})
+ </insert>
+</mapper>

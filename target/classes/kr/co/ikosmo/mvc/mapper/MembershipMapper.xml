@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="membership">
+
+<!-- member_info 테이블
+	private int mem_no;
+	private String mem_id,mem_pwd,mem_name,mem_nickname,
+	mem_juminnum,mem_email,mem_phone,mem_regdate,mem_pic;
+ -->
+
+<!-- 로그인 -->
+<select id="memberlogin" parameterType="membership" resultType="membership">
+      SELECT * 
+        FROM member_info
+       WHERE mem_id = #{mem_id}
+         AND mem_pwd = #{mem_pwd}
+</select>
+
+
+<!-- 회원가입 -->
+<insert id="memberinsert" parameterType="membership">
+		INSERT INTO member_info 
+		VALUES(member_info_seq.nextval,#{mem_id},#{mem_pwd}, #{mem_name},#{mem_nickname},
+				#{mem_juminnum},#{mem_email}, #{mem_phone},sysdate,0,0,0,'일반인',10)
+</insert>
+
+
+<!-- 아이디체크 -->
+<select id="idchk" resultType="int" parameterType="String">
+   select count(*) cnt from member_info where mem_id=#{mem_id}
+</select>
+	<!--  로그인 회원가입 완료  -->
+
+
+	
+<!-- 회원정보수정 -->   	
+	<update id="updateMember" parameterType="membership">
+		UPDATE member_info SET 
+		mem_name=#{mem_name}, mem_nickname = #{mem_nickname} ,
+ 	   mem_email = #{mem_email}, mem_phone =  #{mem_phone},
+ 	   mem_pwd = #{mem_pwd} <if test="mem_pic != null and mem_pic == ''">,mem_pic = #{mem_pic}</if>		 
+		WHERE mem_id=#{mem_id}
+	</update> 
+	
+	
+<!-- 회원탈퇴 -->
+<update id="memberDelete" parameterType="membership">
+      	UPDATE member_info SET 
+		mem_id= '데이터 없음', mem_name='데이터 없음', mem_nickname = '데이터 없음',
+ 	   mem_email = '데이터 없음', mem_phone =  '데이터 없음',
+ 	   mem_pwd = '데이터 없음',mem_juminnum = '데이터 없음', mem_pic = '데이터 없음'
+		WHERE mem_no=#{mem_no}
+	  	  	  	   
+</update>	
+	
+	
+</mapper>  

@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//WebContent/resources/css/class_detail_style.css=UTF-8
+encoding//WebContent/resources/css/recipe_write.css=UTF-8
+encoding//src/kr/co/ikosmo/mvc/controller/ChefController.java=UTF-8
+encoding//src/kr/co/ikosmo/mvc/controller/RecipeController.java=UTF-8
+encoding//src/kr/co/ikosmo/mvc/controller/ScrapController.java=UTF-8
+encoding//src/kr/co/ikosmo/mvc/controller/Store_Controller.java=UTF-8
+encoding//src/kr/co/ikosmo/mvc/controller/SubscribeController.java=UTF-8
+encoding//src/kr/co/ikosmo/mvc/dao/ChefDAOImpl.java=UTF-8
+encoding//src/kr/co/ikosmo/mvc/dao/RecipeDAO.java=UTF-8
+encoding//src/kr/co/ikosmo/mvc/dao/RecipeDAOImpl.java=UTF-8
+encoding//src/kr/co/ikosmo/mvc/vo/MembershipVO.java=UTF-8
+encoding//src/kr/co/ikosmo/mvc/vo/SubscribeVO.java=UTF-8

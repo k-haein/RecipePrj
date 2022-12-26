@@ -1,0 +1,367 @@
+
+
+/*  ----------------------------  디테일 상단  ClasS_title 부분  ----------------------------   */
+
+
+.show_class p3{
+	font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    padding: 10px;
+    font-weight: 700;
+}
+
+
+
+
+
+.show_class{	
+	margin-top: -50px;	
+}
+
+
+.show_class hr{	
+	
+	margin-top: 15px;	
+}
+
+
+
+
+
+/*      결제 신청   */
+
+
+
+.line1{
+	
+   border-top: 1px dashed #c0c8cf;
+  border-bottom: 1px dashed #fff;
+  margin: 30px 0 0 0 ;
+	
+}
+
+
+
+.section_con{
+	
+	 margin: 20px 0 0 0 ;	
+	
+}
+
+
+.section_con dt {
+    width: 140px;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: normal;
+    vertical-align: top;
+}
+
+
+
+.paymentWrap{
+	
+	display:inline-block;
+	margin-left: 30px;
+	padding: 15px;	
+	
+}
+
+
+.class_pay_wrap dt {
+    font-size: 24px;
+    font-weight: normal;
+    padding: 0 0 16px 0;
+    border-bottom: 1px solid #ddd;
+    margin: 15px 0 0 0 ;
+}
+
+
+.paymentWrap dd, .class_pay_list_pic, .class_pay_list_cont {
+   display:inline-block;
+}
+
+
+
+
+
+
+.class_pay_list, .class_pay_info {
+    border: 1px solid #ddd; 
+    margin: 15px 0 0 0;
+    border-radius: 5px; 
+    width: 100%;  
+    height: auto;
+    max-width: 950px;
+    padding: 15px;
+    
+}
+
+
+
+
+
+b {
+    font-weight: bold;
+      color: #5f6d78;
+      font-size: 20px;
+}
+
+
+
+
+.class_pay_list_pic img {
+	display:inline-block;
+    width: 380px;
+    height: auto;
+     border-radius: 10px; 
+}
+
+
+
+img {
+    vertical-align: middle;
+}
+
+
+
+
+.common_sp_caption_tit.line2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1.5;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+
+.common_sp_caption_price {
+    font-size: 20px;
+    color: #73b142;
+    font-weight: normal;
+    letter-spacing: -0.02em;
+    font-family: roboto;
+}
+
+.class_pay_list_cont {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 0 0 22px;
+}
+
+
+
+
+.cont_line input {
+    display: inline-block;
+}
+
+
+
+.cont_box{
+	
+	margin-left: 50px;
+	
+}
+
+
+.cont_tit4{
+	
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1.5;
+    font-weight: bold;
+    font-size: 17px;
+    padding: 10px;
+    margin-top: 10px;
+
+}
+
+
+.cont_box input, #pay_info_type {
+    height: 50px;
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid #efefef;
+    width: 100%;
+    max-width: 610px;
+    color: #6e6e6e;
+    border-color: #e5e1dc;
+    background-color: white;
+    letter-spacing: 0.1px;
+    font-size: 15px;
+}
+
+
+ 
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+input {
+    line-height: normal;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}
+
+
+
+.class_pay_wrap dt {
+    font-size: 24px;
+    font-weight: normal;
+    padding: 0 0 16px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+
+
+.class_pay_info td .form-control {
+    height: 46px;
+    font-size: 16px;
+    width: 550px;
+}
+
+
+
+.class_pay_info td {
+    padding: 10px 0 6px 8px;
+}
+.class_pay_info th, .class_pay_info td {
+    font-size: 16px;
+}
+
+
+.class_pay_info{
+	
+	margin: 0 0 0 30px;
+	
+}
+
+
+
+.class_pay_method a{
+	
+	 text-decoration:none;
+	
+	
+}
+
+
+.class_pay_method{
+	
+	margin: 0 0 0 25%;
+	
+}
+
+
+
+.btn_pay_wrap {
+    padding: 15px 20px 20px 20px;
+    text-align: center;
+    margin-left: -30px;
+
+}
+
+
+
+.btn_pay_wrap button {
+    display: inline-block;
+    width: 100%;
+    min-width: 150px;
+    max-width: 350px;
+    padding: 18px 0;
+    font-size: 20px;
+    text-align: center;
+    background: #a3b0c4;
+    border: 1px solid #cfdae3;
+    color: #fff;
+    font-weight: bold;
+    box-sizing: border-box;
+    margin: 0 auto;
+    border-radius: 50px;
+}
+
+
+.btn_pay_wrap button:hover{
+	
+	 background: #7787a1;
+	
+}
+
+
+button, select {
+    text-transform: none;
+}
+constructed stylesheet
+button {
+    overflow: visible;
+}
+constructed stylesheet
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}
+
+
+
+
+
+
+
+
+
+
+.payOkWrap{
+	
+	margin: 5% 0 0 35%;
+	
+	
+}
+
+
+.okImg{
+	
+	opacity: 0.5;
+	
+}
+
+
+
+.payOkWrap h1{
+	
+	font-size: 25px;
+	padding: 20px;
+	margin: 0 0 0 -40px;
+	font-family: 'GmarketSansMedium';
+	
+}
+
+
